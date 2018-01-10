@@ -1,0 +1,48 @@
+name = webmaster
+description =  webmaster theme.
+core = 7.x
+
+
+; ========================================
+; Regions
+; ========================================
+
+regions[promos_left]     =   'Promos left'
+regions[promos_right]     =   'Promos right'
+regions[header]     =   'Header'
+regions[categories]     =   'Categories'
+regions[slider]     =   'Slider'
+regions[submenu]    =   'Sub-menu'
+regions[new]    =   'New'
+regions[subscribes] =   'Subscribes'
+regions[hits]   =   'Hits'
+regions[shares] =   'Shares'
+regions[recommendations]    =   'Recomendations;
+regions[news]   =   'News'
+regions[useful]   =   'Articles'
+regions[about_us]   =   'About us'
+regions[map]    =   'Map'
+regions[sidebar]    =   'Sidebar'
+regions[content]      = 'Main Region'
+regions[footer_left]    =   'Footer left'
+regions[footer_center]  =   'Footer center'
+regions[footer_right]   =   'Footer right'
+regions[copyright]      =   'Copyright'
+
+; ========================================
+; Stylesheets
+; ========================================
+
+stylesheets[all][] = 'prod/style/style.css'
+
+; ========================================
+; Scripts
+; ========================================
+
+scripts[] = prod/js/bundle.js
+
+; ========================================
+; Modernizr
+; ========================================
+
+modernizr[tests][] = css_boxsizing

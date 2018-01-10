@@ -1,0 +1,13 @@
+{
+  "generator-drupal-theme": {
+    "projectName": "kexp",
+    "projectSlug": "kexp",
+    "baseTheme": null,
+    "sassDir": "sass",
+    "cssDir": "css",
+    "jsDir": "js",
+    "imgDir": "img",
+    "fontsDir": "fonts",
+    "templateDir": "tpl"
+  }
+}
