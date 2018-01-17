@@ -6,6 +6,7 @@ var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
 var gulpif = require('gulp-if');
 var webpack = require('webpack-stream');
+var sourcemaps = require('gulp-sourcemaps');
 
 var processors = [
     autoprefixer({
@@ -25,8 +26,10 @@ gulp.task('sass', function(){
             }).apply(this, args);
             this.emit('end');
         }))
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sass({outputStyle: 'compressed'}))
         .pipe(postcss(processors))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('prod/style'))
 });
 

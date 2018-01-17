@@ -11039,9 +11039,9 @@ jQuery.fn.andSelf = jQuery.fn.addBack;
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 
 if ( true ) {
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
 		return jQuery;
-	}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 }
 
@@ -11091,27 +11091,14 @@ var _jqueryMatchHeight = __webpack_require__(4);
 
 var _slickCarousel = __webpack_require__(5);
 
-var _form = __webpack_require__(6);
+var _openPopup = __webpack_require__(6);
 
-var _form2 = _interopRequireDefault(_form);
-
-var _mobile__menu = __webpack_require__(7);
-
-var _mobile__menu2 = _interopRequireDefault(_mobile__menu);
-
-var _showMore = __webpack_require__(8);
-
-var _showMore2 = _interopRequireDefault(_showMore);
-
-var _calc = __webpack_require__(9);
-
-var _calc2 = _interopRequireDefault(_calc);
+var _openPopup2 = _interopRequireDefault(_openPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(10);
-__webpack_require__(11);
-__webpack_require__(12);
+__webpack_require__(7);
+__webpack_require__(8);
 
 
 jQuery.extend(jQuery.easing, { easeInOutExpo: function easeInOutExpo(e, f, a, h, g) {
@@ -11128,6 +11115,8 @@ var score = { start: 0, finish: finish };
 
 $(document).ready(function () {
 
+   _openPopup2.default.init();
+
    $('.region-slider #block-views-sliders-block .view-content, ' + '.region-slider #block-views-sliders-block-1 .view-content').slick({
       slidesToShow: 1,
       fade: true,
@@ -11135,12 +11124,30 @@ $(document).ready(function () {
       arrows: true
    });
 
-   $('.node-product-display.node-teaser .group__content h4').matchHeight();
-
-   $('.region-new .view-content').slick({
+   $('.region-new .view-content, ' + '.region-hits .view-content, .region-recommendations .view-content').slick({
       slidesToShow: 5,
       variableWidth: true,
-      dote: false
+      dots: false,
+      arrows: true
+   });
+
+   $('#block-webform-client-block-2806 .content form input[type="submit"]').attr('disabled', true);
+
+   $('.fieldset-wrapper .webform-component--fieldset--ya-soglasen-s-usloviyami-podpiski ' + 'input').click(function () {
+      var $checkbox = $(this);
+
+      if ($checkbox.is(":checked")) {
+         $checkbox.closest('form').find('input[type="submit"]').attr('disabled', false);
+      } else {
+         $checkbox.closest('form').find('input[type="submit"]').attr('disabled', true);
+      }
+   });
+
+   $('.region-shares .view-content').slick({
+      slidesToShow: 2,
+      variableWidth: true,
+      dots: false,
+      arrows: true
    });
 });
 
@@ -17298,7 +17305,7 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 									_exports[moduleName][n] = cl;
 								}
 							} else if (true){ //AMD
-								!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() { return cl; }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+								!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() { return cl; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 							}
 						}
@@ -22577,291 +22584,47 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-var form = {
+var openPopup = {
 
     settings: {
-        region: $('.region-hidden'),
-        forms: {
-            all: $('.block-webform, #block-views-calc-block'),
-            call: $('#block-webform-client-block-23'),
-            resume: $('#block-webform-client-block-25'),
-            calc: $('#block-views-calc-block')
-        },
-        btn: $('.region-header--right #block-block-3 .content a, ' + '.mobile__menu #block-multiblock-5 .content a'),
-        closeBtn: $('.webform-component--close a'),
-        resumeBtn: $('.node-job.view-mode-default .group-footer .more-link a'),
-        calcBtn: $('#block-block-4 .content a, ' + '#block-multiblock-4 .content a')
+        targets: $('a.popup-target')
     },
 
     init: function init() {
-        var _this = this;
 
-        var handler = this;
-        this.settings.btn.click(function () {
-            handler.openModal();
-            _this.settings.forms.call.addClass('active');
+        this.settings.targets.each(function (i, el) {
+            var $target = $('.' + $(this).attr('data-target'));
+            $target.addClass('popup-element');
+            $target.append('<div class="close">+</div>');
         });
-        this.settings.calcBtn.click(function () {
-            handler.openModal();
-            _this.settings.forms.calc.addClass('active');
-        });
-        this.settings.region.click(function () {
-            handler.closeModal();
-        });
-        this.settings.forms.all.click(function (e) {
-            e.stopPropagation();
-        });
-        this.settings.closeBtn.click(function () {
-            handler.closeModal();
+
+        this.settings.targets.click(function () {
+            var $target = $('.' + $(this).attr('data-target'));
+            $target.addClass('is-active');
 
             return false;
         });
-        this.settings.resumeBtn.click(function () {
-            var position = $(this).closest('.node-job').find('.title').text().trim();
-            handler.settings.forms.resume.find('input#edit-submitted-vakansiya').val(position);
-            handler.openModal();
-            handler.settings.forms.resume.addClass('active');
+
+        $('.popup-element .close').click(function () {
+            $(this).closest('.popup-element').removeClass('is-active');
+        });
+
+        $('.popup-element').click(function () {
 
             return false;
         });
-    },
 
-    openModal: function openModal() {
-        this.settings.region.addClass('active');
-    },
-
-    closeModal: function closeModal() {
-        this.settings.forms.all.removeClass('active');
-        this.settings.region.removeClass('active');
+        $('body').click(function () {
+            $('.popup-element.is-active').removeClass('is-active');
+        });
     }
 };
 
-module.exports = form;
+module.exports = openPopup;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var mobileMenus = {
-
-    settings: {
-        btns: {
-            all: $('.mobile__container .btn'),
-            menu: $('.mobile__container .btn.menu'),
-            help: $('.mobile__container .btn.help'),
-            closeBtn: $('.mobile__menu .close__btn'),
-            call: $('.mobile__menu #block-multiblock-5 .content a'),
-            calc: $('.mobile__menu #block-multiblock-4 .content a')
-        },
-        menuRegion: $('.mobile__menu'),
-        menus: {
-            all: $('.region-mobile--menu .block'),
-            main: $('.region-mobile--menu #block-system-main-menu'),
-            extra: $('.region-mobile--menu #block-multiblock-2')
-        },
-        overlay: $('.overlay')
-    },
-
-    init: function init() {
-        var handler = this;
-        this.settings.btns.all.click(function (e) {
-            e.stopPropagation();
-            handler.showMenu(e);
-        });
-        this.settings.overlay.click(function () {
-            handler.closeMenu();
-        });
-        this.settings.menuRegion.click(function (e) {
-            e.stopPropagation();
-        });
-        this.settings.btns.closeBtn.click(function () {
-            handler.closeMenu();
-        });
-        this.settings.btns.call.click(function () {
-            handler.closeMenu();
-        });
-        this.settings.btns.calc.click(function () {
-            handler.closeMenu();
-        });
-    },
-
-    showMenu: function showMenu(e) {
-        var $target = $(e.currentTarget);
-        this.settings.menus.all.removeClass('active');
-        this.settings.overlay.addClass('active');
-
-        if ($target.hasClass('menu')) {
-            this.settings.menus.main.addClass('active');
-        } else {
-            this.settings.menus.extra.addClass('active');
-        }
-
-        this.settings.menuRegion.addClass('active');
-    },
-
-    closeMenu: function closeMenu() {
-        this.settings.overlay.removeClass('active');
-        this.settings.menuRegion.removeClass('active');
-    }
-};
-
-module.exports = mobileMenus;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var showMore = {
-
-    settings: {
-        blocks: {
-            //experts: $('.node-company.view-mode-full .team'),
-            documents: $('.node-company.view-mode-full .imgs'),
-            job: $('.node-company.view-mode-full .job')
-        },
-        showMoreBtn: '<div class="show-more">Показать</div>'
-    },
-
-    init: function init() {
-        var handler = this;
-
-        $.each(this.settings.blocks, function (i, el) {
-            var hh = el.find('.item').height();
-            console.log(hh);
-            el.find('>.label-above').append(handler.settings.showMoreBtn);
-            el.css({
-                maxHeight: hh + 98,
-                overflow: 'hidden'
-            });
-
-            if (el.hasClass('imgs')) {
-                el.css({
-                    maxHeight: hh + 126
-                });
-            }
-            el.find('.show-more').click(function () {
-                $(this).hide();
-                handler.showMore(el);
-            });
-        });
-    },
-
-    showMore: function showMore(el) {
-        //console.log(el);
-        var innerHeight = el[0].scrollHeight;
-        console.log(innerHeight);
-        el.animate({
-            maxHeight: innerHeight
-        }, 300);
-        el.addClass('expanded');
-    }
-};
-
-module.exports = showMore;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var calc = {
-
-    settings: {
-        block: $('#block-views-calc-block'),
-        form: $('#block-views-calc-block form.webform-client-form'),
-        input: $('#block-views-calc-block input.user-input'),
-        output: $('#block-views-calc-block input.output-without-nds'),
-        outputNds: $('#block-views-calc-block input.output-with-nds'),
-        values: {
-            psod: parseFloat($('#block-views-calc-block .group-right .psd .value').text().trim()),
-            nds: parseFloat($('#block-views-calc-block .group-right .nds .value').text().trim()),
-            min: parseFloat($('#block-views-calc-block .group-right .min .value').text().trim()),
-            x0: parseFloat($('#block-views-calc-block .group-right .x-0 .value').text().trim()),
-            x1: parseFloat($('#block-views-calc-block .group-right .x-1 .value').text().trim()),
-            y0: parseFloat($('#block-views-calc-block .group-right .y-0 .value').text().trim()),
-            y1: parseFloat($('#block-views-calc-block .group-right .y-1 .value').text().trim()),
-            mrpp: parseFloat($('#block-views-calc-block .group-right .mrpp .value').text().trim()),
-            mrpr: parseFloat($('#block-views-calc-block .group-right .mrpr .value').text().trim())
-        }
-    },
-
-    init: function init() {
-        this.settings.form.on('submit', function () {
-            return false;
-        });
-        var handler = this;
-        var min = this.settings.values.min;
-        var minToStr = min.toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, ' ');
-        var nds = this.settings.values.nds;
-        var withNds = parseInt(min + parseFloat(min) * nds / 100);
-        var withNdsToStr = withNds.toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, ' ');
-        this.settings.output.val(minToStr);
-        this.settings.outputNds.val(withNdsToStr);
-        this.settings.input.on('change keyup paste', function (e) {
-            handler.calc(e);
-        });
-
-        //console.log(this.settings.values);
-    },
-
-    calc: function calc(e) {
-        var val = parseFloat(this.settings.input.val());
-        //console.log(val);
-
-        if (!isNaN(val)) {
-            var input = parseFloat(this.settings.input.val());
-            var min = this.settings.values.min;
-            var x0 = this.settings.values.x0;
-            var x1 = this.settings.values.x1;
-            var y0 = this.settings.values.y0;
-            var y1 = this.settings.values.y1;
-            var nds = this.settings.values.nds;
-            var psod = this.settings.values.psod;
-            var nt = 0;
-            var mrpp = this.settings.values.mrpp;
-            var mrpr = this.settings.values.mrpr;
-            var pirPriv = input * mrpp / mrpr;
-
-            if (input <= x1) {
-                nt = Math.ceil((val - x0) * (y1 - y0) / (x1 - x0) + y0);
-            } else {
-                nt = (1.1431 * Math.pow(pirPriv, 0.39906)).toFixed(2);
-            }
-
-            var price = psod * nt;
-
-            //console.log(nt);
-
-            if (price <= min) {
-                price = min;
-            }
-
-            var priceNds = price + price * 12 / 100;
-            var priceToStr = price.toFixed(0).toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, ' ');
-            var priceNdsToStr = priceNds.toFixed(0).toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, ' ');
-
-            this.settings.output.val(priceToStr);
-            this.settings.outputNds.val(priceNdsToStr);
-        }
-    }
-};
-
-module.exports = calc;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports) {
 
 /*!
@@ -22873,7 +22636,7 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 !function(){"use strict";function t(n){if(!n)throw new Error("No options passed to Waypoint constructor");if(!n.element)throw new Error("No element option passed to Waypoint constructor");if(!n.handler)throw new Error("No handler option passed to Waypoint constructor");this.key="waypoint-"+e,this.options=t.Adapter.extend({},t.defaults,n),this.element=this.options.element,this.adapter=new t.Adapter(this.element),this.callback=n.handler,this.axis=this.options.horizontal?"horizontal":"vertical",this.enabled=this.options.enabled,this.triggerPoint=null,this.group=t.Group.findOrCreate({name:this.options.group,axis:this.axis}),this.context=t.Context.findOrCreateByElement(this.options.context),t.offsetAliases[this.options.offset]&&(this.options.offset=t.offsetAliases[this.options.offset]),this.group.add(this),this.context.add(this),i[this.key]=this,e+=1}var e=0,i={};t.prototype.queueTrigger=function(t){this.group.queueTrigger(this,t)},t.prototype.trigger=function(t){this.enabled&&this.callback&&this.callback.apply(this,t)},t.prototype.destroy=function(){this.context.remove(this),this.group.remove(this),delete i[this.key]},t.prototype.disable=function(){return this.enabled=!1,this},t.prototype.enable=function(){return this.context.refresh(),this.enabled=!0,this},t.prototype.next=function(){return this.group.next(this)},t.prototype.previous=function(){return this.group.previous(this)},t.invokeAll=function(t){var e=[];for(var n in i)e.push(i[n]);for(var o=0,r=e.length;r>o;o++)e[o][t]()},t.destroyAll=function(){t.invokeAll("destroy")},t.disableAll=function(){t.invokeAll("disable")},t.enableAll=function(){t.Context.refreshAll();for(var e in i)i[e].enabled=!0;return this},t.refreshAll=function(){t.Context.refreshAll()},t.viewportHeight=function(){return window.innerHeight||document.documentElement.clientHeight},t.viewportWidth=function(){return document.documentElement.clientWidth},t.adapters=[],t.defaults={context:window,continuous:!0,enabled:!0,group:"default",horizontal:!1,offset:0},t.offsetAliases={"bottom-in-view":function(){return this.context.innerHeight()-this.adapter.outerHeight()},"right-in-view":function(){return this.context.innerWidth()-this.adapter.outerWidth()}},window.Waypoint=t}(),function(){"use strict";function t(t){window.setTimeout(t,1e3/60)}function e(t){this.element=t,this.Adapter=o.Adapter,this.adapter=new this.Adapter(t),this.key="waypoint-context-"+i,this.didScroll=!1,this.didResize=!1,this.oldScroll={x:this.adapter.scrollLeft(),y:this.adapter.scrollTop()},this.waypoints={vertical:{},horizontal:{}},t.waypointContextKey=this.key,n[t.waypointContextKey]=this,i+=1,o.windowContext||(o.windowContext=!0,o.windowContext=new e(window)),this.createThrottledScrollHandler(),this.createThrottledResizeHandler()}var i=0,n={},o=window.Waypoint,r=window.onload;e.prototype.add=function(t){var e=t.options.horizontal?"horizontal":"vertical";this.waypoints[e][t.key]=t,this.refresh()},e.prototype.checkEmpty=function(){var t=this.Adapter.isEmptyObject(this.waypoints.horizontal),e=this.Adapter.isEmptyObject(this.waypoints.vertical),i=this.element==this.element.window;t&&e&&!i&&(this.adapter.off(".waypoints"),delete n[this.key])},e.prototype.createThrottledResizeHandler=function(){function t(){e.handleResize(),e.didResize=!1}var e=this;this.adapter.on("resize.waypoints",function(){e.didResize||(e.didResize=!0,o.requestAnimationFrame(t))})},e.prototype.createThrottledScrollHandler=function(){function t(){e.handleScroll(),e.didScroll=!1}var e=this;this.adapter.on("scroll.waypoints",function(){(!e.didScroll||o.isTouch)&&(e.didScroll=!0,o.requestAnimationFrame(t))})},e.prototype.handleResize=function(){o.Context.refreshAll()},e.prototype.handleScroll=function(){var t={},e={horizontal:{newScroll:this.adapter.scrollLeft(),oldScroll:this.oldScroll.x,forward:"right",backward:"left"},vertical:{newScroll:this.adapter.scrollTop(),oldScroll:this.oldScroll.y,forward:"down",backward:"up"}};for(var i in e){var n=e[i],o=n.newScroll>n.oldScroll,r=o?n.forward:n.backward;for(var s in this.waypoints[i]){var l=this.waypoints[i][s];if(null!==l.triggerPoint){var a=n.oldScroll<l.triggerPoint,h=n.newScroll>=l.triggerPoint,p=a&&h,u=!a&&!h;(p||u)&&(l.queueTrigger(r),t[l.group.id]=l.group)}}}for(var d in t)t[d].flushTriggers();this.oldScroll={x:e.horizontal.newScroll,y:e.vertical.newScroll}},e.prototype.innerHeight=function(){return this.element==this.element.window?o.viewportHeight():this.adapter.innerHeight()},e.prototype.remove=function(t){delete this.waypoints[t.axis][t.key],this.checkEmpty()},e.prototype.innerWidth=function(){return this.element==this.element.window?o.viewportWidth():this.adapter.innerWidth()},e.prototype.destroy=function(){var t=[];for(var e in this.waypoints)for(var i in this.waypoints[e])t.push(this.waypoints[e][i]);for(var n=0,o=t.length;o>n;n++)t[n].destroy()},e.prototype.refresh=function(){var t,e=this.element==this.element.window,i=e?void 0:this.adapter.offset(),n={};this.handleScroll(),t={horizontal:{contextOffset:e?0:i.left,contextScroll:e?0:this.oldScroll.x,contextDimension:this.innerWidth(),oldScroll:this.oldScroll.x,forward:"right",backward:"left",offsetProp:"left"},vertical:{contextOffset:e?0:i.top,contextScroll:e?0:this.oldScroll.y,contextDimension:this.innerHeight(),oldScroll:this.oldScroll.y,forward:"down",backward:"up",offsetProp:"top"}};for(var r in t){var s=t[r];for(var l in this.waypoints[r]){var a,h,p,u,d,f=this.waypoints[r][l],c=f.options.offset,w=f.triggerPoint,y=0,g=null==w;f.element!==f.element.window&&(y=f.adapter.offset()[s.offsetProp]),"function"==typeof c?c=c.apply(f):"string"==typeof c&&(c=parseFloat(c),f.options.offset.indexOf("%")>-1&&(c=Math.ceil(s.contextDimension*c/100))),a=s.contextScroll-s.contextOffset,f.triggerPoint=Math.floor(y+a-c),h=w<s.oldScroll,p=f.triggerPoint>=s.oldScroll,u=h&&p,d=!h&&!p,!g&&u?(f.queueTrigger(s.backward),n[f.group.id]=f.group):!g&&d?(f.queueTrigger(s.forward),n[f.group.id]=f.group):g&&s.oldScroll>=f.triggerPoint&&(f.queueTrigger(s.forward),n[f.group.id]=f.group)}}return o.requestAnimationFrame(function(){for(var t in n)n[t].flushTriggers()}),this},e.findOrCreateByElement=function(t){return e.findByElement(t)||new e(t)},e.refreshAll=function(){for(var t in n)n[t].refresh()},e.findByElement=function(t){return n[t.waypointContextKey]},window.onload=function(){r&&r(),e.refreshAll()},o.requestAnimationFrame=function(e){var i=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||t;i.call(window,e)},o.Context=e}(),function(){"use strict";function t(t,e){return t.triggerPoint-e.triggerPoint}function e(t,e){return e.triggerPoint-t.triggerPoint}function i(t){this.name=t.name,this.axis=t.axis,this.id=this.name+"-"+this.axis,this.waypoints=[],this.clearTriggerQueues(),n[this.axis][this.name]=this}var n={vertical:{},horizontal:{}},o=window.Waypoint;i.prototype.add=function(t){this.waypoints.push(t)},i.prototype.clearTriggerQueues=function(){this.triggerQueues={up:[],down:[],left:[],right:[]}},i.prototype.flushTriggers=function(){for(var i in this.triggerQueues){var n=this.triggerQueues[i],o="up"===i||"left"===i;n.sort(o?e:t);for(var r=0,s=n.length;s>r;r+=1){var l=n[r];(l.options.continuous||r===n.length-1)&&l.trigger([i])}}this.clearTriggerQueues()},i.prototype.next=function(e){this.waypoints.sort(t);var i=o.Adapter.inArray(e,this.waypoints),n=i===this.waypoints.length-1;return n?null:this.waypoints[i+1]},i.prototype.previous=function(e){this.waypoints.sort(t);var i=o.Adapter.inArray(e,this.waypoints);return i?this.waypoints[i-1]:null},i.prototype.queueTrigger=function(t,e){this.triggerQueues[e].push(t)},i.prototype.remove=function(t){var e=o.Adapter.inArray(t,this.waypoints);e>-1&&this.waypoints.splice(e,1)},i.prototype.first=function(){return this.waypoints[0]},i.prototype.last=function(){return this.waypoints[this.waypoints.length-1]},i.findOrCreate=function(t){return n[t.axis][t.name]||new i(t)},o.Group=i}(),function(){"use strict";function t(t){return t===t.window}function e(e){return t(e)?e:e.defaultView}function i(t){this.element=t,this.handlers={}}var n=window.Waypoint;i.prototype.innerHeight=function(){var e=t(this.element);return e?this.element.innerHeight:this.element.clientHeight},i.prototype.innerWidth=function(){var e=t(this.element);return e?this.element.innerWidth:this.element.clientWidth},i.prototype.off=function(t,e){function i(t,e,i){for(var n=0,o=e.length-1;o>n;n++){var r=e[n];i&&i!==r||t.removeEventListener(r)}}var n=t.split("."),o=n[0],r=n[1],s=this.element;if(r&&this.handlers[r]&&o)i(s,this.handlers[r][o],e),this.handlers[r][o]=[];else if(o)for(var l in this.handlers)i(s,this.handlers[l][o]||[],e),this.handlers[l][o]=[];else if(r&&this.handlers[r]){for(var a in this.handlers[r])i(s,this.handlers[r][a],e);this.handlers[r]={}}},i.prototype.offset=function(){if(!this.element.ownerDocument)return null;var t=this.element.ownerDocument.documentElement,i=e(this.element.ownerDocument),n={top:0,left:0};return this.element.getBoundingClientRect&&(n=this.element.getBoundingClientRect()),{top:n.top+i.pageYOffset-t.clientTop,left:n.left+i.pageXOffset-t.clientLeft}},i.prototype.on=function(t,e){var i=t.split("."),n=i[0],o=i[1]||"__default",r=this.handlers[o]=this.handlers[o]||{},s=r[n]=r[n]||[];s.push(e),this.element.addEventListener(n,e)},i.prototype.outerHeight=function(e){var i,n=this.innerHeight();return e&&!t(this.element)&&(i=window.getComputedStyle(this.element),n+=parseInt(i.marginTop,10),n+=parseInt(i.marginBottom,10)),n},i.prototype.outerWidth=function(e){var i,n=this.innerWidth();return e&&!t(this.element)&&(i=window.getComputedStyle(this.element),n+=parseInt(i.marginLeft,10),n+=parseInt(i.marginRight,10)),n},i.prototype.scrollLeft=function(){var t=e(this.element);return t?t.pageXOffset:this.element.scrollLeft},i.prototype.scrollTop=function(){var t=e(this.element);return t?t.pageYOffset:this.element.scrollTop},i.extend=function(){function t(t,e){if("object"==typeof t&&"object"==typeof e)for(var i in e)e.hasOwnProperty(i)&&(t[i]=e[i]);return t}for(var e=Array.prototype.slice.call(arguments),i=1,n=e.length;n>i;i++)t(e[0],e[i]);return e[0]},i.inArray=function(t,e,i){return null==e?-1:e.indexOf(t,i)},i.isEmptyObject=function(t){for(var e in t)return!1;return!0},n.adapters.push({name:"noframework",Adapter:i}),n.Adapter=i}();
 
 /***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /*!
@@ -22883,187 +22646,6 @@ Licensed under the MIT license.
 https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 */
 !function(){"use strict";function t(){}function e(t){this.options=i.Adapter.extend({},e.defaults,t),this.axis=this.options.horizontal?"horizontal":"vertical",this.waypoints=[],this.element=this.options.element,this.createWaypoints()}var i=window.Waypoint;e.prototype.createWaypoints=function(){for(var t={vertical:[{down:"enter",up:"exited",offset:"100%"},{down:"entered",up:"exit",offset:"bottom-in-view"},{down:"exit",up:"entered",offset:0},{down:"exited",up:"enter",offset:function(){return-this.adapter.outerHeight()}}],horizontal:[{right:"enter",left:"exited",offset:"100%"},{right:"entered",left:"exit",offset:"right-in-view"},{right:"exit",left:"entered",offset:0},{right:"exited",left:"enter",offset:function(){return-this.adapter.outerWidth()}}]},e=0,i=t[this.axis].length;i>e;e++){var n=t[this.axis][e];this.createWaypoint(n)}},e.prototype.createWaypoint=function(t){var e=this;this.waypoints.push(new i({context:this.options.context,element:this.options.element,enabled:this.options.enabled,handler:function(t){return function(i){e.options[t[i]].call(e,i)}}(t),offset:t.offset,horizontal:this.options.horizontal}))},e.prototype.destroy=function(){for(var t=0,e=this.waypoints.length;e>t;t++)this.waypoints[t].destroy();this.waypoints=[]},e.prototype.disable=function(){for(var t=0,e=this.waypoints.length;e>t;t++)this.waypoints[t].disable()},e.prototype.enable=function(){for(var t=0,e=this.waypoints.length;e>t;t++)this.waypoints[t].enable()},e.defaults={context:window,enabled:!0,enter:t,entered:t,exit:t,exited:t},i.Inview=e}();
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {
-
-/** @preserve jQuery animateNumber plugin v0.0.14
- * (c) 2013, Alexandr Borisov.
- * https://github.com/aishek/jquery-animateNumber
- */
-
-// ['...'] notation using to avoid names minification by Google Closure Compiler
-(function ($) {
-    var reverse = function reverse(value) {
-        return value.split('').reverse().join('');
-    };
-
-    var defaults = {
-        numberStep: function numberStep(now, tween) {
-            var floored_number = Math.floor(now),
-                target = $(tween.elem);
-
-            target.text(floored_number);
-        }
-    };
-
-    var handle = function handle(tween) {
-        var elem = tween.elem;
-        if (elem.nodeType && elem.parentNode) {
-            var handler = elem._animateNumberSetter;
-            if (!handler) {
-                handler = defaults.numberStep;
-            }
-            handler(tween.now, tween);
-        }
-    };
-
-    if (!$.Tween || !$.Tween.propHooks) {
-        $.fx.step.number = handle;
-    } else {
-        $.Tween.propHooks.number = {
-            set: handle
-        };
-    }
-
-    var extract_number_parts = function extract_number_parts(separated_number, group_length) {
-        var numbers = separated_number.split('').reverse(),
-            number_parts = [],
-            current_number_part,
-            current_index,
-            q;
-
-        for (var i = 0, l = Math.ceil(separated_number.length / group_length); i < l; i++) {
-            current_number_part = '';
-            for (q = 0; q < group_length; q++) {
-                current_index = i * group_length + q;
-                if (current_index === separated_number.length) {
-                    break;
-                }
-
-                current_number_part = current_number_part + numbers[current_index];
-            }
-            number_parts.push(current_number_part);
-        }
-
-        return number_parts;
-    };
-
-    var remove_precending_zeros = function remove_precending_zeros(number_parts) {
-        var last_index = number_parts.length - 1,
-            last = reverse(number_parts[last_index]);
-
-        number_parts[last_index] = reverse(parseInt(last, 10).toString());
-        return number_parts;
-    };
-
-    $.animateNumber = {
-        numberStepFactories: {
-            /**
-             * Creates numberStep handler, which appends string to floored animated number on each step.
-             *
-             * @example
-             * // will animate to 100 with "1 %", "2 %", "3 %", ...
-             * $('#someid').animateNumber({
-            *   number: 100,
-            *   numberStep: $.animateNumber.numberStepFactories.append(' %')
-            * });
-             *
-             * @params {String} suffix string to append to animated number
-             * @returns {Function} numberStep-compatible function for use in animateNumber's parameters
-             */
-            append: function append(suffix) {
-                return function (now, tween) {
-                    var floored_number = Math.floor(now),
-                        target = $(tween.elem);
-
-                    target.prop('number', now).text(floored_number + suffix);
-                };
-            },
-
-            /**
-             * Creates numberStep handler, which format floored numbers by separating them to groups.
-             *
-             * @example
-             * // will animate with 1 ... 217,980 ... 95,217,980 ... 7,095,217,980
-             * $('#world-population').animateNumber({
-            *    number: 7095217980,
-            *    numberStep: $.animateNumber.numberStepFactories.separator(',')
-            * });
-             * @example
-             * // will animate with 1% ... 217,980% ... 95,217,980% ... 7,095,217,980%
-             * $('#salesIncrease').animateNumber({
-            *   number: 7095217980,
-            *   numberStep: $.animateNumber.numberStepFactories.separator(',', 3, '%')
-            * });
-             *
-             * @params {String} [separator=' '] string to separate number groups
-             * @params {String} [group_length=3] number group length
-             * @params {String} [suffix=''] suffix to append to number
-             * @returns {Function} numberStep-compatible function for use in animateNumber's parameters
-             */
-            separator: function separator(_separator, group_length, suffix) {
-                _separator = _separator || ' ';
-                group_length = group_length || 3;
-                suffix = suffix || '';
-
-                return function (now, tween) {
-                    var negative = now < 0,
-                        floored_number = Math.floor((negative ? -1 : 1) * now),
-                        separated_number = floored_number.toString(),
-                        target = $(tween.elem);
-
-                    if (separated_number.length > group_length) {
-                        var number_parts = extract_number_parts(separated_number, group_length);
-
-                        separated_number = remove_precending_zeros(number_parts).join(_separator);
-                        separated_number = reverse(separated_number);
-                    }
-
-                    target.prop('number', now).text((negative ? '-' : '') + separated_number + suffix);
-                };
-            }
-        }
-    };
-
-    $.fn.animateNumber = function () {
-        var options = arguments[0],
-            settings = $.extend({}, defaults, options),
-            target = $(this),
-            args = [settings];
-
-        for (var i = 1, l = arguments.length; i < l; i++) {
-            args.push(arguments[i]);
-        }
-
-        // needs of custom step function usage
-        if (options.numberStep) {
-            // assigns custom step functions
-            var items = this.each(function () {
-                this._animateNumberSetter = options.numberStep;
-            });
-
-            // cleanup of custom step functions after animation
-            var generic_complete = settings.complete;
-            settings.complete = function () {
-                items.each(function () {
-                    delete this._animateNumberSetter;
-                });
-
-                if (generic_complete) {
-                    generic_complete.apply(this, arguments);
-                }
-            };
-        }
-
-        return target.animate.apply(target, args);
-    };
-})(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

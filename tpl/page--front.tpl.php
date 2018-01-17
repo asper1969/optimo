@@ -88,14 +88,9 @@
 <?php if($page['recommendations']): ?>
     <?php print render($page['recommendations']);?>
 <?php endif; ?>
-<div class="articles">
-    <?php if($page['news']): ?>
-        <?php print render($page['news']);?>
-    <?php endif; ?>
-    <?php if($page['useful']): ?>
-        <?php print render($page['useful']);?>
-    <?php endif; ?>
-</div>
+<?php if($page['useful']): ?>
+    <?php print render($page['useful']);?>
+<?php endif; ?>
 <div class="company-info">
     <?php if($page['about_us']): ?>
         <?php print render($page['about_us']);?>

@@ -1,19 +1,17 @@
 require('waypoints/lib/noframework.waypoints.min.js');
 require('waypoints/lib/shortcuts/inview.min.js');
-require('./modules/animateNumber.js');
 import {TimelineMax} from 'gsap';
 import {matchHeight} from 'jquery-match-height';
 import {slick} from 'slick-carousel';
-import form from './modules/form.js';
-import mobileMenus from './modules/mobile__menu.js';
-import showMore from './modules/showMore.js';
-import calc from './modules/calc.js';
+import openPopup from './modules/openPopup.js';
 
 jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a}});
 let finish = parseInt($('#block-block-8 p.block-title').text().trim());
 let score = {start: 0, finish: finish};
 
 $(document).ready(()=>{
+
+   openPopup.init();
 
    $('.region-slider #block-views-sliders-block .view-content, ' +
        '.region-slider #block-views-sliders-block-1 .view-content').slick({
@@ -23,18 +21,37 @@ $(document).ready(()=>{
       arrows: true
    });
 
-   $('.node-product-display.node-teaser .group__content h4').matchHeight();
-
-   $('.region-new .view-content').slick({
+   $('.region-new .view-content, ' +
+       '.region-hits .view-content, .region-recommendations .view-content').slick({
       slidesToShow: 5,
       variableWidth: true,
-      dote: false
+      dots: false,
+      arrows: true
+   });
+
+   $('#block-webform-client-block-2806 .content form input[type="submit"]').attr('disabled', true);
+
+   $('.fieldset-wrapper .webform-component--fieldset--ya-soglasen-s-usloviyami-podpiski ' +
+       'input').click(function(){
+      let $checkbox = $(this);
+
+      if($checkbox.is(":checked")){
+         $checkbox.closest('form').find('input[type="submit"]').attr('disabled', false);
+      }else{
+         $checkbox.closest('form').find('input[type="submit"]').attr('disabled', true);
+      }
+   });
+
+   $('.region-shares .view-content').slick({
+      slidesToShow: 2,
+      variableWidth: true,
+      dots: false,
+      arrows: true
    });
 });
 
 $(window).load(function(){
    $('body').addClass('is-active');
-
 });
 
 function scrollTo(block){
