@@ -5,6 +5,7 @@
 @import "helpers/vars";
 
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700,900&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700');
 
 img{
   max-width: 100%;
@@ -68,11 +69,22 @@ background: $c-promos;
   .container{
     width: 1440px;
     margin: 0 auto;
-    padding: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 40px;
+
+    @include respond-to(960){
+      width: 960px;
+    }
+    @include respond-to(768){
+      width: 768px;
+    }
+    @include respond-to(320){
+      width: 320px;
+      justify-content: flex-end;
+    }
 
     .block{
 
@@ -98,11 +110,25 @@ background: $c-promos;
     align-items: center;
     margin-left: 265px;
 
+    @include respond-to(960){
+      margin-left: 0;
+    }
+    @include respond-to(320){
+      display: none;
+    }
+
     #block-block-25{
       margin-right: 64px;
 
       .content{
         text-decoration: underline;
+      }
+    }
+
+    #block-block-26{
+
+      @include respond-to(768){
+        display: none;
       }
     }
   }
@@ -121,7 +147,12 @@ background: $c-promos;
     }
 
     #block-block-27{
-      margin-right: 42px;
+      margin-right: 21px;
+      padding-right: 21px;
+
+      @include respond-to(320){
+        border-right: 1px solid #fff;
+      }
     }
   }
 }
@@ -135,8 +166,22 @@ header{
   justify-content: space-between;
   align-items: center;
 
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+  }
+  @include respond-to(320){
+    width: 320px;
+  }
+
   .logo{
     margin-left: 34px;
+
+    @include respond-to(960){
+      margin-left: 0;
+    }
   }
 
   .region-header{
@@ -152,6 +197,16 @@ header{
   #block-views-exp-products-catalog-page-1{
     margin-right: 42px;
 
+    @include respond-to(960){
+      margin-right: 25px;
+    }
+    @include respond-to(768){
+      margin-right: 52px;
+    }
+    @include respond-to(320){
+      display: none;
+    }
+
     .content{
 
       form{
@@ -163,6 +218,13 @@ header{
           width: 585px;
           height: 39px;
           padding: 0 20px;
+
+          @include respond-to(960){
+            width: 253px;
+          }
+          @include respond-to(768){
+            width: 356px;
+          }
         }
 
         input[type="submit"]{
@@ -181,7 +243,15 @@ header{
 
   #block-block-29{
     padding-left: 57px;
-    margin-right: 30px;
+    padding-right: 30px;
+
+    @include respond-to(960){
+      padding-left: 36px;
+      padding-right: 25px;
+    }
+    @include respond-to(768){
+      display: none;
+    }
   }
 
   #block-block-30{
@@ -191,6 +261,16 @@ header{
     padding-right: 50px;
     border-right: 1px solid $c-border;
 
+    @include respond-to(960){
+      padding-left: 25px;
+      padding-right: 24px;
+      width: 116px;
+      border-left: 1px solid $c-border;
+    }
+    @include respond-to(768){
+      display: none;
+    }
+
     .content{
     }
   }
@@ -199,11 +279,93 @@ header{
 .navigation{
   background: $c-accent;
 
+  .btns{
+    display: none;
+
+    @include respond-to(768){
+      display: flex;
+      width: 768px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 45px;
+    }
+    @include respond-to(320){
+      width: 320px;
+      justify-content: center;
+    }
+
+    .btn{
+      color: #fff;
+      font-size: 14px;
+      font-weight: 400;
+      padding-left: 40px;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &.btn__menu{
+        margin-right: 64px;
+
+        @include respond-to(320){
+          margin-right: 56px;
+        }
+
+        .icon{
+          flex-direction: column;
+          justify-content: space-between;
+          width: 21px;
+          height: 16px;
+          top: calc(50% - 1px);
+
+          .line{
+            height: 1px;
+            border-bottom: 2px solid #fff;
+          }
+        }
+      }
+
+      &.btn__catalog{
+
+        .icon{
+          justify-content: space-between;
+          align-items: space-between;
+          flex-wrap: wrap;
+          width: 18px;
+          height: 18px;
+          align-content: space-between;
+
+          .line{
+            width: 7px;
+            height: 7px;
+            background: #fff;
+          }
+        }
+      }
+
+      .icon{
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        text-indent: -99999px;
+      }
+    }
+  }
+
   >ul.menu{
     width: 1440px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
+
+    @include respond-to(960){
+      width: 960px;
+    }
+
+    @include respond-to(768){
+      display: none;
+    }
 
     >li{
       flex: 1 1 auto;
@@ -217,6 +379,11 @@ header{
         line-height: 45px;
         text-align: center;
         position: relative;
+        white-space: nowrap;
+
+        @include respond-to(960){
+          font-size: 13px;
+        }
 
         &:hover{
 
@@ -248,6 +415,10 @@ header{
   border-top: 1px solid $c-border;
   border-bottom: 1px solid $c-border;
 
+  @include respond-to(768){
+    display: none;
+  }
+
     >ul.menu-catalog{
       width: 1440px;
       margin: 0 auto;
@@ -256,15 +427,22 @@ header{
       justify-content: space-between;
       position: relative;
 
+      @include respond-to(960){
+        width: 960px;
+      }
+
       >li{
         flex: 1 1 auto;
         border-left: 1px solid $c-border;
+        display: flex;
+        justify-content: center;
 
         @include transite(all);
 
         &:last-of-type{
           border-right: 1px solid $c-border;
         }
+
         &:hover{
           background: #fff;
 
@@ -275,8 +453,6 @@ header{
         }
 
         >a{
-          width: 170px;
-          margin: 0 auto;
           text-transform: uppercase;
           display: flex;
           justify-content: center;
@@ -287,6 +463,12 @@ header{
           font-size: 14px;
           font-weight: 400;
           color: $c-header-text;
+          text-align: center;
+
+          @include respond-to(960){
+            padding: 0 5px;
+            font-size: 12px;
+          }
         }
 
         >ul.sub-catalog{
@@ -349,6 +531,17 @@ header{
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
+
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+    margin-top: 22px;
+  }
+  @include respond-to(320){
+    width: 320px;
+  }
 
   .slick-arrow{
     width: 29px;
@@ -442,11 +635,16 @@ header{
   .views-row{
 
     .img{
+      overflow: hidden;
+      height: 340px;
 
       img{
-        max-width: 100%;
-        height: auto;
         display: block;
+        max-width: initial;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
       }
     }
 
@@ -473,7 +671,15 @@ header{
 
   #block-views-sliders-block{
     width: 1034px;
+    max-width: 100%;
     position: relative;
+
+    @include respond-to(960){
+      width: 576px;
+    }
+    @include respond-to(768){
+      width: 100%;
+    }
 
     .view-content{
 
@@ -484,6 +690,10 @@ header{
       .link{
         left: 110px;
         bottom: 62px;
+
+        @include respond-to(320){
+          left: 30px;
+        }
       }
     }
   }
@@ -491,6 +701,13 @@ header{
   #block-views-sliders-block-1{
     width: 350px;
     position: relative;
+
+    @include respond-to(960){
+      width: 330px;
+    }
+    @include respond-to(768){
+      display: none;
+    }
 
     .view-content{
 
@@ -508,8 +725,15 @@ header{
 
 .region-submenu{
   width: 1440px;
-  margin: 0 auto;
+  margin: 16px auto 0;
   padding: 0 20px;
+
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    display: none;
+  }
 
   .block{
 
@@ -522,6 +746,19 @@ header{
           width: 25%;
           display: block;
 
+          @for $i from 1 through 4{
+
+            &:nth-of-type(#{$i}){
+
+              a{
+
+                &:before{
+                  background: url('../img/icons/block__categories/#{$i}.jpg') no-repeat center center;
+                }
+              }
+            }
+          }
+
           a{
             display: flex;
             height: 90px;
@@ -530,6 +767,10 @@ header{
             font-size: 18px;
             align-items: center;
             position: relative;
+
+            @include respond-to(960){
+              padding-left: 110px;
+            }
 
             &:before{
               content: '';
@@ -555,12 +796,29 @@ header{
   margin: 0 auto;
   padding: 0 20px;
 
+  @include respond-to(960){
+    width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  @include respond-to(768){
+    width: 768px;
+  }
+  @include respond-to(320){
+    width: 320px;
+  }
+
   p.block-title{
     color: $c-text;
     font-size: 30px;
     font-weight: 400;
     margin-top: 35px;
     margin-bottom: 22px;
+
+    @include respond-to(320){
+      font-size: 26px;
+      margin-top: 22px;
+    }
   }
 
   .view{
@@ -570,6 +828,12 @@ header{
       position: absolute;
       top: -53px;
       right: 76px;
+
+      @include respond-to(320){
+        top: -46px;
+        right: 0;
+        display: none;
+      }
 
       a{
         width: 126px;
@@ -584,11 +848,20 @@ header{
         align-items: center;
 
         @include transite(all);
+        @include respond-to(320){
+          width: auto;
+          border: none;
+        }
 
         &:hover{
           color: #fff;
           background: $c-accent;
           border-color: $c-accent;
+
+          @include respond-to(320){
+            background: transparent;
+            color: $c-accent;
+          }
         }
       }
     }
@@ -597,6 +870,14 @@ header{
   .slick-slide{
     width: 262px;
     margin: 0 11px;
+
+    @include respond-to(960){
+      margin: 0 33px;
+    }
+    @include respond-to(768){
+      margin: 0 5px;
+      width: 236px;
+    }
   }
 
   .slick-arrow{
@@ -610,6 +891,9 @@ header{
     top: -53px;
 
     @include transite(all);
+    @include respond-to(320){
+      display: none!important;
+    }
 
     &:hover{
       background: $c-accent;
@@ -653,7 +937,7 @@ header{
 .node-product-display.node-teaser{
   border: 1px solid $c-border;
   padding: 16px 5px 30px;
-  width: 262px;
+  width: 100%;
   position: relative;
 
   .group__img{
@@ -815,6 +1099,10 @@ header{
       font-size: 14px;
       font-weight: 300;
       cursor: pointer;
+
+      @include respond-to(768){
+        font-size: 13px;
+      }
     }
 
     .compare, .credit{
@@ -869,6 +1157,20 @@ header{
   border-bottom: 1px solid $c-border;
   background: $c-subscribes;
 
+  @include respond-to(960){
+    width: 920px;
+  }
+  @include respond-to(768){
+    width: 728px;
+  }
+  @include respond-to(320){
+    width: 320px;
+    padding: 30px 0 20px;
+    height: auto;
+    border-bottom: none;
+    margin-top: 40px;
+  }
+
   #block-block-32{
     color: $c-text;
     width: 472px;
@@ -878,11 +1180,46 @@ header{
     flex-direction: column;
     justify-content: center;
 
+    @include respond-to(960){
+      width: 272px;
+    }
+    @include respond-to(768){
+      width: 270px;
+    }
+    @include respond-to(320){
+      width: 100%;
+      padding: 0 32px 20px;
+      margin: 0 auto 20px;
+      border: none;
+      border-bottom: 1px solid $c-border;
+    }
+
     p.block-title{
       text-transform: uppercase;
       font-weight: 600;
       font-size: 48px;
       margin-bottom: 7px;
+      position: relative;
+
+      @include respond-to(960){
+        font-size: 28px;
+      }
+
+      &:before{
+        content: '';
+        display: block;
+        position: absolute;
+        width: 178px;
+        height: 93px;
+        background: url('../img/icons/sticker__subscribe.png');
+        opacity: .4;
+        top: -19px;
+        left: -120px;
+
+        @include respond-to(960){
+          display: none;
+        }
+      }
     }
 
     .content{
@@ -892,11 +1229,80 @@ header{
 
   #block-webform-client-block-2806{
     width: 858px;
+    position: relative;
+
+    @include respond-to(960px){
+      width: 630px;
+    }
+    @include respond-to(768){
+      width: 438px;
+    }
+    @include respond-to(320){
+      width: 280px;
+      margin: 0 auto;
+    }
+
+    &:after{
+      content: '';
+      display: block;
+      width: 66px;
+      height: 31px;
+      position: absolute;
+      background: url('../img/icons/pointer.png');
+      top: 0;
+      right: 340px;
+
+      @include respond-to(960){
+        display: none;
+      }
+    }
 
     .content{
+      position: relative;
+
+      &:before{
+        content: '';
+        display: block;
+        background: #000;
+        width: 325px;
+        height: 174px;
+        position: absolute;
+        top: -51px;
+        right: -6px;
+        background: url('../img/icons/subscribe.png');
+
+        @include respond-to(960){
+          top: -41px;
+        }
+        @include respond-to(768){
+          display: none;
+        }
+      }
+
+      &:after{
+        content: '';
+        display: block;
+        width: 41px;
+        height: 41px;
+        position: absolute;
+        top: -47px;
+        right: -2px;
+        background: url('../img/icons/subscribe__triangle.png') no-repeat;
+
+        @include respond-to(960){
+          top: -37px;
+        }
+        @include respond-to(768){
+          display: none;
+        }
+      }
 
       form{
         position: relative;
+
+        @include respond-to(320){
+          text-align: center;
+        }
 
         input[type="email"]{
           border: 1px solid $c-border;
@@ -907,6 +1313,14 @@ header{
           padding: 0 20px;
           color: $c-grey;
           margin-bottom: 11px;
+
+          @include respond-to(960){
+            width: 296px;
+          }
+          @include respond-to(768){
+            width: 100%;
+            height: 33px;
+          }
         }
 
         input[type="submit"]{
@@ -919,11 +1333,25 @@ header{
           color: #fff;
           border: 1px solid $c-accent;
           position: absolute;
-          top: -16px;
+          top: -21px;
           right: 14px;
           cursor: default;
 
           @include transite(all);
+          @include respond-to(960){
+            top: -11px;
+          }
+          @include respond-to(768){
+            width: 147px;
+            height: 33px;
+            font-size: 12px;
+            top: 60px;
+            right: 0;
+          }
+          @include respond-to(320){
+            position: static;
+            margin-top: 6px;
+          }
 
           &:disabled{
             opacity: .5;
@@ -943,8 +1371,17 @@ header{
           display: flex;
           align-items: center;
 
+          @include respond-to(960){
+            display: block;
+          }
+
           .webform-component--fieldset--usloviya-podpiski---ssylka{
             margin-right: 58px;
+
+            @include respond-to(320){
+              margin: 0;
+              text-align: center;
+            }
 
             a{
               font-size: 14px;
@@ -1010,6 +1447,7 @@ header{
     visibility: visible;
     opacity: 1;
     transform: translate(-50%,-50%) scale(1);
+    z-index: 20;
   }
 
   .close{
@@ -1036,6 +1474,16 @@ header{
   margin: 0 auto;
   padding: 0 20px;
 
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+  }
+  @include respond-to(320){
+    width: 320px;
+  }
+
   p.block-title{
     color: $c-text;
     font-size: 30px;
@@ -1052,6 +1500,11 @@ header{
       top: -53px;
       right: 76px;
 
+      @include respond-to(320){
+        top: -49px;
+        right: 0;
+      }
+
       a{
         width: 126px;
         height: 29px;
@@ -1065,11 +1518,20 @@ header{
         align-items: center;
 
         @include transite(all);
+        @include respond-to(320){
+          width: auto;
+          border: none;
+        }
 
         &:hover{
           color: #fff;
           background: $c-accent;
           border-color: $c-accent;
+
+          @include respond-to(320){
+            background: transparent;
+            color: $c-accent;
+          }
         }
       }
     }
@@ -1078,6 +1540,13 @@ header{
   .slick-slide{
     width: 690px;
     margin: 0 11px;
+
+    @include respond-to(960){
+      width: 450px;
+    }
+    @include respond-to(320){
+      width: 280px;
+    }
   }
 
   .slick-arrow{
@@ -1091,6 +1560,10 @@ header{
     top: -53px;
 
     @include transite(all);
+
+    @include respond-to(320){
+      display: none!important;
+    }
 
     &:hover{
       background: $c-accent;
@@ -1149,6 +1622,21 @@ header{
   display: flex;
   justify-content: space-between;
 
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  @include respond-to(320){
+    width: 320px;
+    flex-wrap: wrap;
+  }
+
   .block{
 
     p.block-title{
@@ -1157,12 +1645,23 @@ header{
       font-weight: 400;
       margin-top: 35px;
       margin-bottom: 22px;
+
+      @include respond-to(320){
+        font-size: 26px;
+      }
     }
 
     .view-content{
       width: 690px;
       background: $c-main-menu;
       padding: 40px 30px;
+
+      @include respond-to(960){
+        width: 450px;
+      }
+      @include respond-to(320){
+        width: auto;
+      }
     }
   }
 
@@ -1192,6 +1691,50 @@ header{
         }
       }
     }
+
+    @include respond-to(320){
+
+      .more-link{
+        position: absolute;
+        top: -53px;
+        right: 76px;
+
+        @include respond-to(320){
+          top: 22px;
+          right: 0;
+        }
+
+        a{
+          width: 126px;
+          height: 29px;
+          border: 1px solid $c-grey;
+          border-radius: 2px;
+          color: $c-grey;
+          font-size: 14px;
+          font-weight: 400;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          @include transite(all);
+          @include respond-to(320){
+            width: auto;
+            border: none;
+          }
+
+          &:hover{
+            color: #fff;
+            background: $c-accent;
+            border-color: $c-accent;
+
+            @include respond-to(320){
+              background: transparent;
+              color: $c-accent;
+            }
+          }
+        }
+      }
+    }
   }
 
   .views-row{
@@ -1213,10 +1756,21 @@ header{
     .group-left{
       width: 150px;
       margin-right: 30px;
+
+      @include respond-to(320){
+        display: none;
+      }
     }
 
     .group-right{
       width: 452px;
+
+      @include respond-to(960){
+        width: 210px;
+      }
+      @include respond-to(320){
+        width: auto;
+      }
 
       .title{
         font-size: 18px;
@@ -1226,6 +1780,9 @@ header{
         margin-bottom: 20px;
 
         @include transite(all);
+        @include respond-to(960){
+          margin-bottom: 14px;
+        }
 
         &:hover{
           color: $c-accent;
@@ -1241,10 +1798,522 @@ header{
         font-weight: 300;
         font-size: 14px;
         margin-bottom: 20px;
+
+        @include respond-to(960){
+          margin-bottom: 14px;
+        }
       }
 
       .text{
         color: $c-text;
+        font-size: 14px;
+
+        @include respond-to(960){
+          overflow: hidden;
+          max-height: 74px;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
+
+.company-info{
+  width: 1440px;
+  padding: 0 20px;
+  margin: 34px auto 70px;
+  display: flex;
+  justify-content: space-between;
+
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+  }
+  @include respond-to(320){
+    width: 320px;
+    margin-bottom: 50px;
+    display: block;
+  }
+
+  .about__us{
+    position: relative;
+    width: 690px;
+
+    @include respond-to(960){
+      width: 454px;
+    }
+    @include respond-to(768){
+      width: 392px;
+    }
+    @include respond-to(320){
+      width: auto;
+    }
+
+    #block-block-33{
+      display: flex;
+      padding-bottom: 46px;
+      border-bottom: 1px solid $c-border;
+      margin-left: -8px;
+      margin-top: 34px;
+
+      @include respond-to(960){
+        padding-bottom: 20px;
+      }
+      @include respond-to(320){
+        display: block;
+      }
+
+      p.block-title{
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 30px;
+        position: relative;
+        width: 120px;
+        padding-left: 60px;
+        margin-right: 50px;
+        display: flex;
+        align-items: center;
+
+        @include respond-to(960){
+          margin-right: 24px;
+          top: -44px;
+        }
+        @include respond-to(768){
+          width: 114px;
+          top: -54px;
+        }
+        @include respond-to(320){
+          position: relative;
+          top: 0;
+          padding-left: 32px;
+          margin-bottom: 30px;
+        }
+
+        &:before{
+          content: 'o';
+          display: block;
+          font-size: 202px;
+          font-weight: 700;
+          color: $c-os;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          opacity: .2;
+          font-family: 'Roboto Condensed', sans-serif;
+
+          @include respond-to(768){
+            font-size: 94px;
+          }
+        }
+      }
+
+      .content{
+        color: $c-os;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 1.4;
+
+        @include respond-to(320){
+          padding-left: 8px;
+        }
+
+        p{
+          margin-bottom: 20px;
+
+          @include respond-to(768){
+            margin-bottom: 10px;
+          }
+
+          &:last-of-type{
+            margin-bottom: 0;
+
+            @include respond-to(960){
+              margin-left: -88px;
+            }
+            @include respond-to(768){
+              margin-left: -98px;
+            }
+            @include respond-to(320){
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+
+    #block-block-34{
+      margin-top: 30px;
+
+      @include respond-to(960){
+        margin-top: 20px;
+      }
+      @include respond-to(320){
+        padding-left: 8px;
+      }
+
+      .content{
+        font-size: 14px;
+        font-weight: 300;
+        padding-left: 40px;
+        color: $c-text;
+
+        @include respond-to(960){
+          padding-left: 63px;
+        }
+        @include respond-to(768){
+          padding-left: 10px;
+        }
+
+        ul{
+          list-style: initial;
+
+          li{
+            padding-left: 10px;
+
+            @include respond-to(320){
+              padding-left: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .logo{
+      position: absolute;
+      right: 50px;
+      bottom: 28px;
+
+      @include respond-to(960){
+        display: none;
+      }
+    }
+  }
+
+  .region-map{
+    width: 690px;
+    max-width: 100%;
+
+    @include respond-to(960){
+      width: 450px;
+    }
+    @include respond-to(768){
+      width: 320px;
+      margin-top: 34px;
+    }
+
+    #block-block-35{
+      position: relative;
+
+      &:after{
+        content: '';
+        display: block;
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        background: url('../img/icons/map.jpg') center center;
+        top: -10px;
+        right: 0;
+      }
+
+      p.block-title{
+        color: $c-os;
+        font-size: 24px;
+        font-weight: 300;
+        text-align: right;
+        padding-right: 108px;
+        margin-bottom: 7px;
+      }
+
+      .content{
+        overflow: hidden;
+
+        img{
+          max-width: initial;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+
+          @include respond-to(960){
+            height: 326px;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer{
+  background: $c-subscribes;
+
+  .container{
+    width: 1440px;
+    margin: 0 auto;
+    padding: 40px 20px 48px;
+    color: $c-text;
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+
+    @include respond-to(960){
+      width: 960px;
+    }
+    @include respond-to(768){
+      width: 768px;
+    }
+    @include respond-to(320){
+      width: 320px;
+      display: block;
+      padding: 40px 20px 30px;
+    }
+
+    >div{
+      flex: 1 1 auto;
+    }
+
+    p.block-title{
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .footer__left{
+      display: flex;
+
+      @include respond-to(320){
+        display: none;
+      }
+
+      .submenu{
+
+        ul.menu{
+
+          li{
+            margin: 0 0 18px;
+          }
+        }
+      }
+
+      .submenu__left{
+        width: 174px;
+        border-right: 1px solid $c-border;
+
+        @include respond-to(960){
+          width: 150px;
+          border: none;
+        }
+        @include respond-to(768){
+          width: 140px;
+        }
+      }
+
+      .submenu__right{
+        width: 474px;
+        padding-left: 70px;
+
+        @include respond-to(960){
+          width: 360px;
+          padding-left: 20px;
+        }
+        @include respond-to(768){
+          width: 360px;
+        }
+
+        ul.menu{
+          height: 156px;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+
+          li:nth-of-type(5n){
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .region-footer-center{
+      width: 346px;
+      border-right: 1px solid $c-border;
+      border-left: 1px solid $c-border;
+      padding-left: 70px;
+      padding-right: 70px;
+
+      @include respond-to(960){
+        border-right: none;
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      @include respond-to(768){
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      @include respond-to(320){
+        border: none;
+        padding: 0;
+      }
+
+      .block{
+
+        .content{
+
+          em{
+            font-style: normal;
+            display: block;
+          }
+
+          p{
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+
+    .region-footer-right{
+      width: 350px;
+      padding-left: 70px;
+      padding-bottom: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @include respond-to(960){
+        width: 250px;
+        padding-left: 20px;
+        padding-bottom: 0;
+      }
+      @include respond-to(768){
+        width: auto;
+      }
+      @include respond-to(320){
+        padding: 0;
+      }
+
+      #block-block-37{
+
+        @include respond-to(768){
+          display: none;
+        }
+
+        .content{
+          font-weight: 500;
+        }
+      }
+
+      #block-block-38{
+
+        @include respond-to(768){
+          display: none;
+        }
+
+        .content{
+
+          a{
+            color: $c-text;
+            text-decoration: underline;
+            font-weight: 400;
+
+            &:hover{
+              color: $c-accent;
+            }
+
+            @include transite(all);
+          }
+        }
+      }
+
+      #block-block-39{
+
+        @include respond-to(320){
+          margin-top: 20px;
+        }
+
+        .content{
+
+          ul{
+            display: flex;
+            flex-wrap: wrap;
+
+            @include respond-to(768){
+              display: block;
+            }
+            @include respond-to(320){
+              display: flex;
+              flex-wrap: wrap;
+            }
+
+            a{
+              display: block;
+              width: 46px;
+              height: 46px;
+              border-radius: 100%;
+              background: #000;
+              position: relative;
+              margin-right: 20px;
+              text-indent: -99999px;
+
+              @include respond-to(960){
+                margin-right: 10px;
+                margin-bottom: 10px;
+              }
+              @include respond-to(768){
+                margin-left: auto;
+                margin-right: 0;
+              }
+              @include respond-to(320){
+                margin-right: 10px;
+              }
+
+              &:after{
+                content: '';
+                display: block;
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background: #fff;
+                transform: translate(-50%,-50%);
+
+                @include transite(all);
+              }
+
+              &:hover{
+
+                &:after{
+                  background: $c-accent;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .copyright{
+    background: $c-accent;
+
+    .wrapper{
+      width: 1440px;
+      height: 50px;
+      margin: 0 auto;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @include respond-to(960){
+        width: 960px;
+      }
+      @include respond-to(768){
+        width: 768px;
+      }
+      @include respond-to(320){
+        width: 320px;
       }
     }
   }

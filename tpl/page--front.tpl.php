@@ -17,6 +17,25 @@
     <?php endif; ?>
 </header>
 <div class="navigation">
+    <div class="btns">
+        <div class="btn btn__menu">
+            <div class="icon">
+                <div class="line">.</div>
+                <div class="line">.</div>
+                <div class="line">.</div>
+            </div>
+            <span>Меню</span>
+        </div>
+        <div class="btn btn__catalog">
+            <div class="icon">
+                <div class="line">.</div>
+                <div class="line">.</div>
+                <div class="line">.</div>
+                <div class="line">.</div>
+            </div>
+            <span>Каталог</span>
+        </div>
+    </div>
     <?php
     $menu = menu_tree('main-menu');
     echo render($menu);
@@ -92,18 +111,58 @@
     <?php print render($page['useful']);?>
 <?php endif; ?>
 <div class="company-info">
-    <?php if($page['about_us']): ?>
-        <?php print render($page['about_us']);?>
-    <?php endif; ?>
+    <div class="about__us container">
+        <?php if($page['about_us']): ?>
+            <?php print render($page['about_us']);?>
+        <?php endif; ?>
+        <div class="logo">
+            <img src="<?php echo $logo;?>" alt="">
+        </div>
+    </div>
     <?php if($page['map']): ?>
         <?php print render($page['map']);?>
     <?php endif; ?>
 </div>
 <footer>
     <div class="container">
-        <?php if($page['footer_left']): ?>
-            <?php print render($page['footer_left']);?>
-        <?php endif; ?>
+        <div class="footer__left">
+            <?php
+            $menu_links = menu_load_links('main-menu');
+//            kpr($menu_links);
+            ?>
+            <div class="submenu submenu__left">
+                <p class="block-title">Клиентам</p>
+                <ul class="menu">
+                    <?php foreach($menu_links as $link):?>
+                        <?php if(isset($link['options']['attributes']['name'])):?>
+                            <?php if($link['options']['attributes']['name'] == 'Компания'):?>
+                                <li>
+                                    <a href="<?php echo '/' . $link['link_path'];?>">
+                                        <?php echo $link['link_title'];?>
+                                    </a>
+                                </li>
+                            <?php endif;?>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <div class="submenu submenu__right">
+                <p class="block-title">Покупателям</p>
+                <ul class="menu">
+                    <?php foreach($menu_links as $link):?>
+                        <?php if(isset($link['options']['attributes']['name'])):?>
+                            <?php if($link['options']['attributes']['name'] == 'Покупателям'):?>
+                                <li>
+                                    <a href="<?php echo '/' . $link['link_path'];?>">
+                                        <?php echo $link['link_title'];?>
+                                    </a>
+                                </li>
+                            <?php endif;?>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+        </div>
         <?php if($page['footer_center']): ?>
             <?php print render($page['footer_center']);?>
         <?php endif; ?>
@@ -118,7 +177,7 @@
             <?php endif; ?>
             <div id="web-master">
                 <a href="https://web-master.kz/"  target="_blank">
-                    <img width="120" src="<?php print $base_path . $directory; ?>/dev/images/web-master.svg" alt="<?php print t('web-master.kz') ?>"/>
+                    <img width="120" src="<?php print $base_path . $directory; ?>/prod/img/web-master.svg" alt="<?php print t('web-master.kz') ?>"/>
                 </a>
             </div>
         </div>
