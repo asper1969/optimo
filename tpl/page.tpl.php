@@ -16,6 +16,7 @@
                 <?php print render($action_links); ?>
             </ul>
         <?php endif; ?>
+        <?php print $messages; ?>
         <?php if($page['content']): ?>
             <?php print render($page['content']);?>
         <?php endif; ?>

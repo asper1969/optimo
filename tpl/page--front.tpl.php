@@ -1,9 +1,13 @@
+<?php
+global $user;
+?>
+<div class="overlay"></div>
 <div class="promos">
     <div class="container">
         <?php if($page['promos_left']): ?>
             <?php print render($page['promos_left']);?>
         <?php endif; ?>
-        <?php if($page['promos_right']): ?>
+        <?php if($page['promos_right'] && !$user->uid): ?>
             <?php print render($page['promos_right']);?>
         <?php endif; ?>
     </div>
@@ -36,17 +40,18 @@
             <span>Каталог</span>
         </div>
     </div>
-    <?php
-    $menu = menu_tree('main-menu');
-    echo render($menu);
-    ?>
+    <div class="container">
+        <?php
+        $menu = menu_tree('main-menu');
+        echo render($menu);
+        ?>
+        <div class="close">+</div>
+    </div>
 </div>
 <div class="main-categories">
 
     <?php
     $menu = menu_tree_all_data('menu-catalog');
-//    kpr($menu);
-    //    echo render($menu);
     ?>
     <ul class="menu-catalog">
         <?php foreach($menu as $key=>$category):?>
@@ -85,6 +90,7 @@
             </li>
         <?php endforeach;?>
     </ul>
+    <div class="close">+</div>
 </div>
 <?php if($page['slider']): ?>
     <?php print render($page['slider']);?>
@@ -175,6 +181,7 @@
             <?php if($page['copyright']): ?>
                 <?php print render($page['copyright']);?>
             <?php endif; ?>
+
             <div id="web-master">
                 <a href="https://web-master.kz/"  target="_blank">
                     <img width="120" src="<?php print $base_path . $directory; ?>/prod/img/web-master.svg" alt="<?php print t('web-master.kz') ?>"/>
@@ -183,3 +190,10 @@
         </div>
     </div>
 </footer>
+
+<div class="hidden__container">
+    <?php print $messages; ?>
+    <?php if($page['hidden__region']): ?>
+        <?php print render($page['hidden__region']);?>
+    <?php endif; ?>
+</div>

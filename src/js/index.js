@@ -4,6 +4,7 @@ import {TimelineMax} from 'gsap';
 import {matchHeight} from 'jquery-match-height';
 import {slick} from 'slick-carousel';
 import openPopup from './modules/openPopup.js';
+import mobileMenu from './modules/mobileMenu.js';
 
 jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a}});
 let finish = parseInt($('#block-block-8 p.block-title').text().trim());
@@ -11,6 +12,7 @@ let score = {start: 0, finish: finish};
 
 $(document).ready(()=>{
 
+   mobileMenu.init();
    openPopup.init();
 
    $('.region-slider #block-views-sliders-block .view-content, ' +
@@ -35,6 +37,9 @@ $(document).ready(()=>{
        'input').click(function(){
       let $checkbox = $(this);
 
+      if(!$checkbox.closest('.block').hasClass('is-active')){
+         $checkbox.closest('.block').addClass('is-active');
+      }
       if($checkbox.is(":checked")){
          $checkbox.closest('form').find('input[type="submit"]').attr('disabled', false);
       }else{

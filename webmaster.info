@@ -27,6 +27,7 @@ regions[content]      = 'Main Region'
 regions[footer_center]  =   'Footer center'
 regions[footer_right]   =   'Footer right'
 regions[copyright]      =   'Copyright'
+regions[hidden__region] =   'Hidden region'
 
 ; ========================================
 ; Stylesheets
