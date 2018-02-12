@@ -179,3 +179,17 @@ function webmaster_preprocess_node(&$vars) {
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->nid . '__teaser';
   }
 }
+
+function webmaster_form_comment_form_alter(&$form, &$form_state, $form_id) {
+
+//  $form['#action'] = '?' . drupal_get_destination();
+  $form['author']['name']['#attributes']['placeholder'] = t('Ваше имя*');
+  $form['field_e_mail']['und'][0]['email']['#attributes']['placeholder'] = t('Ваш e-mail');
+  $form['comment_body']['und'][0]['value']['#attributes']['placeholder'] = t('Ваш Комментарий');
+  $form['actions']['submit']['#value'] = t('Отправить');
+  $form['captcha']['#attributes']['placeholder'] = t('Введите символы, которые показаны на картинке.');
+
+  unset($form['author']['name']['#title']);
+  unset($form['field_e_mail']['und'][0]['email']['#title']);
+  unset($form['comment_body']['und'][0]['value']['#title']);
+}

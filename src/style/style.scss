@@ -1804,6 +1804,10 @@ header{
   box-shadow: 0 3px 4px rgba(0,0,0,0.4)!important;
   margin-left: initial!important;
 
+  @include respond-to(320){
+    width: 280px;
+  }
+
   a.commerce-add-to-cart-confirmation-close{
     position: absolute;
     top: 8px;
@@ -1841,7 +1845,7 @@ header{
     color: $c-text;
     float: none;
     width: 100%;
-
+    padding: 10px 20px;
   }
 
   .button-wrapper{
@@ -1851,6 +1855,11 @@ header{
     bottom: 0;
     display: flex;
     justify-content: center;
+
+    @include respond-to(320){
+      display: block;
+      padding: 40px 50px;
+    }
 
     &:after{
       display: none;
@@ -1871,6 +1880,10 @@ header{
         margin-right: 20px;
 
         @include transite(all);
+        @include respond-to(320){
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
 
         a{
           color: $c-accent;
@@ -2569,6 +2582,11 @@ footer{
 
           li{
             margin: 0 0 18px;
+
+            a.active{
+              font-weight: 600;
+              color: $c-accent;
+            }
           }
         }
       }
@@ -2802,5 +2820,522 @@ footer{
 
   .block{
     display: none;
+  }
+}
+
+.breadcrumb{
+  width: 1400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+  border-bottom: 1px solid $c-border;
+  color: $c-os;
+  font-size: 12px;
+
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    display: none;
+  }
+
+  a{
+    color: $c-os;
+
+    &:hover{
+      color: $c-accent;
+    }
+
+    @include transite(all);
+  }
+}
+
+.main__content{
+  width: 1440px;
+  margin: 0 auto;
+  padding: 24px 20px 50px;
+  min-height: calc(100vh - 516px);
+  display: flex;
+  justify-content: space-between;
+
+  @include respond-to(960){
+    width: 960px;
+  }
+  @include respond-to(768){
+    width: 768px;
+  }
+  @include respond-to(320){
+    width: 320px;
+  }
+
+  .sidebar{
+    width: 254px;
+
+    @include respond-to(768){
+      display: none;
+    }
+
+    p.block-title{
+      font-weight: 500;
+      font-size: 16px;
+      color: $c-text;
+      margin-bottom: 20px;
+    }
+
+    ul.menu{
+      margin-bottom: 32px;
+
+      li{
+        margin: 0;
+
+        a{
+          font-size: 16px;
+          font-weight: 300;
+          color: $c-text;
+          display: block;
+          margin-bottom: 20px;
+
+          &:hover, &.active-trail, &.active{
+            color: $c-accent;
+          }
+
+          &.active-trail, &.active{
+            font-weight: 500;
+          }
+
+          @include transite(all);
+        }
+      }
+    }
+
+    .submenu__right{
+
+      ul.menu{
+
+        a{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .container{
+    width: 1100px;
+
+    @include respond-to(960){
+      width: 690px;
+    }
+    @include respond-to(768){
+      width: 100%;
+    }
+
+    img{
+      max-width: 100%;
+    }
+
+    h1.title{
+      color: $c-text;
+      font-weight: 400;
+      font-size: 24px;
+      margin-top: -7px;
+    }
+
+    #block-system-main{
+      padding-top: 20px;
+
+      .content{
+
+        a{
+          text-decoration: underline;
+          color: $c-os;
+
+          &:hover{
+            color: $c-accent;
+          }
+
+          @include transite(all);
+        }
+
+        p{
+          margin-bottom: 20px;
+
+          img{
+            margin-right: 50px;
+            margin-bottom: 14px;
+          }
+        }
+
+        table{
+          width: 100%;
+          max-width: 100%;
+          margin-bottom: 20px;
+          overflow-y: auto;
+
+          @include respond-to(320){
+            display: block;
+          }
+
+          tr{
+
+            &:last-of-type{
+
+              td{
+                border-bottom: 1px solid #000;
+              }
+            }
+          }
+
+          td{
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            padding: 10px 20px;
+
+            &:last-of-type{
+              border-right: 1px solid #000;
+            }
+          }
+        }
+
+        ul:not(.contextual-links){
+          list-style: initial;
+          margin-bottom: 20px;
+
+          li{
+            margin-left: 20px;
+          }
+        }
+
+        ol{
+          list-style: decimal;
+          margin-bottom: 20px;
+
+          li{
+            margin-left: 20px;
+          }
+        }
+
+        h2,h3,h4,h5,h6{
+          font-weight: 400;
+          margin-bottom: 20px;
+        }
+      }
+
+      .node-page.view-mode-full,
+      .node-news.view-mode-full,
+      .node-share.view-mode-full,
+      .node-articles.view-mode-full{
+
+        .date{
+          color: $c-accent;
+          font-weight: 300;
+          font-size: 14px;
+          margin-bottom: 20px;
+          text-align: right;
+
+          @include respond-to(960){
+            margin-bottom: 14px;
+          }
+        }
+
+        .images{
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 20px;
+
+          @include respond-to(320){
+            padding-top: 20px;
+          }
+
+          .img{
+            margin-right: 16px;
+            margin-bottom: 18px;
+
+            @include respond-to(960){
+              width: 32%;
+              margin-right: 8px;
+              margin-bottom: 8px; 
+            }
+            @include respond-to(320){
+              width: 100%;
+            }
+
+            img{
+              display: block;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+
+      .node-news.view-mode-teaser,
+      .node-articles.view-mode-teaser{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $c-border;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+
+        @include respond-to(320){
+          clear: both;
+          display: block;
+        }
+
+        .group-left{
+
+          @include respond-to(320){
+            width: 110px;
+            margin-right: 13px;
+            margin-bottom: 4px;
+            float: left;
+          }
+
+          img{
+            display: block;
+          }
+        }
+
+        .group-right{
+          width: 880px;
+
+          @include respond-to(960){
+            width: 460px;
+          }
+          @include respond-to(768){
+            width: 520px;
+          }
+          @include respond-to(320){
+            width: auto;
+          }
+
+          h4.title{
+
+            @include respond-to(960){
+              margin-bottom: 14px;
+            }
+
+            a{
+              text-decoration: none;
+              font-size: 18px;
+              font-weight: 400;
+              color: $c-text;
+
+              &:hover{
+                color: $c-accent;
+              }
+
+              @include transite(all);
+            }
+          }
+
+          .date{
+            color: $c-accent;
+            font-weight: 300;
+            font-size: 14px;
+            margin-bottom: 20px;
+
+            @include respond-to(960){
+              margin-bottom: 14px;
+            }
+          }
+
+          .text{
+            font-size: 14px;
+            font-weight: 300;
+            color: $c-text;
+            margin-bottom: 20px;
+
+            @include respond-to(320){
+              margin-bottom: 10px;
+            }
+
+            p{
+              margin: 0;
+            }
+          }
+
+          .more{
+
+            @include respond-to(320){
+              text-align: right;
+            }
+
+            a{
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      .view-shares.view-display-id-page .view-content{
+        display: flex;
+        flex-wrap: wrap;
+
+        .views-row{
+          width: 50%;
+
+          @include respond-to(960){
+            width: 100%;
+          }
+        }
+
+        .node-share.view-mode-teaser{
+          margin-right: 20px;
+          margin-bottom: 20px;
+
+          @include respond-to(960){
+            margin-right: 0;
+          }
+
+          img{
+            max-width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+
+      section#comments{
+        padding-top: 20px;
+        font-size: 14px;
+        line-height: 1.2;
+
+        ul.links{
+          margin-top: 20px;
+          margin-bottom: 0;
+          display: block;
+
+          @include respond-to(768){
+            display: none;
+          }
+        }
+
+        p.block-title{
+          font-size: 24px;
+          font-weight: 400;
+
+          &:last-of-type{
+            font-size: 18px;
+            text-align: center;
+
+            @include respond-to(960){
+              text-align: left;
+            }
+          }
+        }
+
+        .comment{
+          padding-bottom: 20px;
+          margin-bottom: 20px;
+          border-bottom: 1px solid $c-border;
+
+          &.comment-unpublished{
+            padding: 20px;
+          }
+        }
+
+        .author{
+          text-decoration: none;
+          font-size: 18px;
+          font-weight: 400;
+          color: $c-text;
+          margin-bottom: 20px;
+        }
+
+        .date{
+          text-align: left;
+        }
+
+        .field-comment-body{
+          line-height: 1.4;
+        }
+
+        form.comment-form{
+          width: 580px;
+          max-width: 100%;
+          margin: 0 auto;
+
+          @include respond-to(960){
+            width: 100%;
+            margin: 0;
+          }
+
+          .grippie{
+            display: none;
+          }
+
+          input:not([type="submit"]),
+          textarea{
+            border: 1px solid $c-border;
+            border-radius: 2px;
+            padding: 0 20px;
+            font: 300  14px 'Rubik';
+            color: $c-text;
+            margin-bottom: 10px;
+            height: 40px;
+            width: 100%;
+          }
+
+          textarea{
+            height: 140px;
+            padding:  10px 20px;
+            margin-bottom: 20px;
+          }
+
+          input[type="submit"]{
+            margin: 0 auto;
+            width: 126px;
+            height: 30px;
+            border: 1px solid $c-grey;
+            border-radius: 2px;
+            color: $c-grey;
+            font-size: 14px;
+            display: block;
+            cursor: pointer;
+            background: transparent;
+            font-weight: 600;
+
+            @include transite(all);
+
+            &:hover{
+              color: #fff;
+              background: $c-accent;
+              border-color: $c-accent;
+            }
+          }
+
+          label{
+             display: none;
+          }
+
+          a{
+            display: block;
+            margin-bottom: 10px;
+          }
+
+          fieldset.captcha{
+            margin-bottom: 20px;
+
+            legend{
+              display: none;
+            }
+
+            .fieldset-description{
+              display: none;
+            }
+
+            img{
+              display: block;
+              margin: 0 auto 10px;
+            }
+
+            input{
+              background: $c-subscribes;
+            }
+          }
+        }
+      }
+    }
   }
 }

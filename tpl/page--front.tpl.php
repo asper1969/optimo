@@ -134,10 +134,9 @@ global $user;
         <div class="footer__left">
             <?php
             $menu_links = menu_load_links('main-menu');
-//            kpr($menu_links);
             ?>
             <div class="submenu submenu__left">
-                <p class="block-title">Клиентам</p>
+                <p class="block-title">Компания</p>
                 <ul class="menu">
                     <?php foreach($menu_links as $link):?>
                         <?php if(isset($link['options']['attributes']['name'])):?>

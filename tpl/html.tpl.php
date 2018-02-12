@@ -57,7 +57,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="<?php print $classes; ?>" <?php print $attributes;?>>
+<body class="<?php print $classes; ?> is-active" <?php print $attributes;?>>
 <?php print $page_top; ?>
 <?php print $page; ?>
 <?php print $scripts; ?>
