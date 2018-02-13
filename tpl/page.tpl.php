@@ -5,6 +5,8 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
     $node = node_load(arg(1));
     $current_node = $node->type;
 }
+$current_path = current_path();
+
 //kpr($current_node);
 ?>
 <div class="overlay"></div>
@@ -64,7 +66,7 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
     <ul class="menu-catalog">
         <?php foreach($menu as $key=>$category):?>
             <li class="category">
-                <a href="<?php echo $category['link']['link_path'];?>">
+                <a href="/<?php echo $category['link']['link_path'];?>">
                     <?php echo $category['link']['title'];?>
                 </a>
                 <?php
@@ -74,7 +76,7 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
                     <ul class="sub-catalog">
                         <?php foreach($sub_catalog as $key=>$sub_category):?>
                             <li class="sub-category">
-                                <a href="<?php echo $sub_category['link']['link_path'];?>">
+                                <a href="/<?php echo $sub_category['link']['link_path'];?>">
                                     <?php echo $sub_category['link']['link_title'];?>
                                 </a>
                                 <?php
@@ -84,7 +86,7 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
                                     <ul class="sub-catalog">
                                         <?php foreach($bottom_catalog as $key=>$bottom_category):?>
                                             <li class="sub-category">
-                                                <a href="<?php echo $bottom_category['link']['link_path'];?>">
+                                                <a href="/<?php echo $bottom_category['link']['link_path'];?>">
                                                     <?php echo $bottom_category['link']['link_title'];?>
                                                 </a>
                                             </li>
@@ -101,63 +103,69 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
     <div class="close">+</div>
 </div>
 <?php print $breadcrumb;?>
-<div class="main__content">
-    <div class="sidebar">
-        <div class="submenu submenu__left">
-            <?php
-            $menu_links = menu_load_links('main-menu');
-            $current_path = current_path();
-            ?>
-            <p class="block-title">Компания</p>
-            <ul class="menu">
-                <?php foreach($menu_links as $link):?>
-                    <?php if(isset($link['options']['attributes']['name'])):?>
-                        <?php
-                        if($current_node == ''){
-                            $current_node = '_____';
-                        }
-                        if($link['options']['attributes']['name'] == 'Компания'):?>
-                            <li>
-                                <a href="<?php echo '/' . $link['link_path'];?>"
-                                   class="menu_link <?php if($current_path == $link['link_path']
-                                       || $link['link_path'] == $current_node
-                                       || strpos($link['link_path'], $current_node) !== false){
-                                       echo 'active';
-                                   }?>">
-                                    <?php echo $link['link_title'];?>
-                                </a>
-                            </li>
-                        <?php endif;?>
-                    <?php endif;?>
-                <?php endforeach;?>
-            </ul>
-        </div>
-        <div class="submenu submenu__right">
-            <p class="block-title">Покупателям</p>
-            <ul class="menu">
-                <?php foreach($menu_links as $link):?>
-                    <?php if(isset($link['options']['attributes']['name'])):?>
-                        <?php if($link['options']['attributes']['name'] == 'Покупателям'):?>
-                            <li>
-                                <a href="<?php echo '/' . $link['link_path'];?>"
-                                   class="menu_link <?php if($current_path == $link['link_path']
-                                       || $link['link_path'] == $current_node
-                                       || strpos($link['link_path'], $current_node) !== false){
-                                    echo 'active';
-                                }?>">
-                                    <?php echo $link['link_title'];?>
-                                </a>
-                            </li>
-                        <?php endif;?>
-                    <?php endif;?>
-                <?php endforeach;?>
-            </ul>
-        </div>
+<div class="main__content <?php if($current_node == 'product_display'){
+    echo $current_node;
+}?>">
+    <?php if($current_node !== 'product_display'):?>
+        <div class="sidebar">
         <?php if($page['sidebar']): ?>
             <?php print render($page['sidebar']);?>
+        <?php else:?>
+            <div class="submenu submenu__left">
+                <?php
+                $menu_links = menu_load_links('main-menu');
+                ?>
+                <p class="block-title">Компания</p>
+                <ul class="menu">
+                    <?php foreach($menu_links as $link):?>
+                        <?php if(isset($link['options']['attributes']['name'])):?>
+                            <?php
+                            if($current_node == ''){
+                                $current_node = '_____';
+                            }
+                            if($link['options']['attributes']['name'] == 'Компания'):?>
+                                <li>
+                                    <a href="<?php echo '/' . $link['link_path'];?>"
+                                       class="menu_link <?php if($current_path == $link['link_path']
+                                           || $link['link_path'] == $current_node
+                                           || strpos($link['link_path'], $current_node) !== false){
+                                           echo 'active';
+                                       }?>">
+                                        <?php echo $link['link_title'];?>
+                                    </a>
+                                </li>
+                            <?php endif;?>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <div class="submenu submenu__right">
+                <p class="block-title">Покупателям</p>
+                <ul class="menu">
+                    <?php foreach($menu_links as $link):?>
+                        <?php if(isset($link['options']['attributes']['name'])):?>
+                            <?php if($link['options']['attributes']['name'] == 'Покупателям'):?>
+                                <li>
+                                    <a href="<?php echo '/' . $link['link_path'];?>"
+                                       class="menu_link <?php if($current_path == $link['link_path']
+                                           || $link['link_path'] == $current_node
+                                           || strpos($link['link_path'], $current_node) !== false){
+                                           echo 'active';
+                                       }?>">
+                                        <?php echo $link['link_title'];?>
+                                    </a>
+                                </li>
+                            <?php endif;?>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </ul>
+            </div>
         <?php endif; ?>
     </div>
-    <div class="container">
+    <?php endif;?>
+    <div class="container <?php if($current_node == 'product_display'){
+        echo $current_node;
+    }?>">
         <?php if($title): ?>
             <h1 class="title" id="page-title"><?php print trim($title); ?></h1>
         <?php endif;?>

@@ -34,8 +34,11 @@ let mobileMenu = {
             handler.catalogClose();
         });
         this.settings.subCatalog.click(function(e){
+            let ww = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
-            return false;
+            if(ww < 960){
+                return false;
+            }
         });
         this.settings.catalogCategories.click(function(){
 
