@@ -22,7 +22,7 @@ unset($content_alter['commerce_product_comparison'],
     $content_alter['field_product_des'], $content_alter['product:field_novinki'],
     $content_alter['field_product_images'], $content_alter['product:title_field'],
     $content_alter['field_product_related']);
-kpr($content_alter);
+//kpr($content['title_field']);
 ?>
 <div class="product__announce">
     <div class="sliders">
@@ -137,6 +137,11 @@ kpr($content_alter);
                 <a href="#" class="panel__link is-active" data-panel="Описание">Описание</a>
             </li>
         <?php endif;?>
+        <?php if(isset($content_alter)):?>
+            <li>
+                <a href="#" class="panel__link link__attributes" data-panel="Характеристики">Характеристики</a>
+            </li>
+        <?php endif;?>
         <li class="gimmick">....</li>
     </ul>
     <div class="container">
@@ -144,9 +149,44 @@ kpr($content_alter);
             <div class="panel panel__comments <?php if(!isset($content['field_product_des'])){ echo 'is-active';}?>" data-panel="Отзывы">
                 <?php print render($content['comments']);?>
             </div>
-            <div class="panel panel__description  <?php if(isset($content['field_product_des'])){ echo 'is-active';}?> text" data-panel="Описание">
-                <?php echo render($content['field_product_des']);?>
-            </div>
+            <?php if(isset($content['field_product_des'])):?>
+                <div class="panel panel__description is-active text" data-panel="Описание">
+                    <?php
+                    $product_title = strip_tags($content['title_field'][0]['#markup']);
+                    ?>
+                    <p class="block-title">
+                        <?php echo $product_title;?>
+                    </p>
+                    <div class="text">
+                        <?php echo render($content['field_product_des'][0]['#markup']);?>
+                    </div>
+                </div>
+            <?php endif;?>
+            <?php if(isset($content_alter)):?>
+                <div class="panel panel__attributes" data-panel="Характеристики">
+                    <?php if($content_alter):?>
+                        <ul class="attributes">
+                            <?php foreach($content_alter as $attribute):?>
+                                <li class="attribute">
+                        <span class="attribute__title">
+                            <?php echo $attribute['#title'] . ' - ';?>
+                        </span>
+                        <span class="attribute__value">
+                            <?php
+                            if(isset($attribute[0]['#title'])){
+                                echo $attribute[0]['#title'];
+                            }
+                            if(isset($attribute[0]['#markup'])){
+                                echo $attribute[0]['#markup'];
+                            }
+                            ?>
+                        </span>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                    <?php endif;?>
+                </div>
+            <?php endif;?>
         </div>
         <div class="node-product-display node-teaser">
             <div class="group__header group">

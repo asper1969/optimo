@@ -15,7 +15,10 @@ $(document).ready(()=>{
 
    mobileMenu.init();
    openPopup.init();
-   product.init();
+
+   if($('.main__content .container.product_display').length){
+      product.init();
+   }
 
    $('.region-slider #block-views-sliders-block .view-content, ' +
        '.region-slider #block-views-sliders-block-1 .view-content').slick({

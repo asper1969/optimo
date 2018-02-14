@@ -626,6 +626,7 @@ header{
             visibility: visible;
             opacity: 1;
 
+            @include transite(all);
             @include respond-to(768){
               transform: none;
             }
@@ -3355,9 +3356,21 @@ footer{
       justify-content: space-between;
       height: 336px;
 
+      @include respond-to(960){
+        flex-wrap: wrap;
+        height: 422px;
+      }
+      @include respond-to(320){
+        height: auto;
+      }
+
       .sliders{
         position: relative;
         display: flex;
+
+        @include respond-to(320){
+          display: block;
+        }
 
         .group__header{
           position: absolute;
@@ -3420,6 +3433,20 @@ footer{
       .slider__main{
         width: 438px;
         padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+
+        @include respond-to(960){
+          width: 332px;
+        }
+        @include respond-to(768){
+          width: 302px;
+        }
+        @include respond-to(320){
+          width: 280px;
+        }
       }
 
       .slider__extra{
@@ -3427,6 +3454,10 @@ footer{
         border-left: 1px solid $c-border;
         border-right: 1px solid $c-border;
         position: relative;
+
+        @include respond-to(320){
+          width: 280px;
+        }
 
         .slick-arrow{
           width: 29px;
@@ -3481,6 +3512,13 @@ footer{
           padding: 0!important;
         }
 
+        //.slick-track{
+        //
+        //  @include respond-to(320){
+        //    height: 94px;
+        //  }
+        //}
+
         .slick-slide{
           display: flex;
           justify-content: center;
@@ -3492,6 +3530,13 @@ footer{
           border: 1px solid $c-border;
 
           @include transite(all);
+          @include respond-to(320){
+            border-left: none;
+            height: 94px;
+            margin-left: -1px;
+            margin-bottom: 0;
+            width: 94px!important;
+          }
 
           &.slick-current{
             border: 1px solid $c-accent;
@@ -3506,6 +3551,13 @@ footer{
         top: 20px;
         right: 140px;
 
+        @include respond-to(768){
+          right: 126px;
+        }
+        @include respond-to(320){
+          right: 14px;
+        }
+
         img{
           max-width: 150px;
           height: auto;
@@ -3518,6 +3570,18 @@ footer{
         width: 522px;
         padding: 20px 40px 50px 90px;
         position: relative;
+
+        @include respond-to(960){
+          width: 472px;
+          padding: 20px 40px 50px 72px;
+        }
+        @include respond-to(768){
+          width: 312px;
+          padding: 20px 20px 50px 70px;
+        }
+        @include respond-to(320){
+          display: none;
+        }
 
         h1{
           font-size: 16px!important;
@@ -3538,22 +3602,53 @@ footer{
         border-left: 1px solid $c-border;
         padding: 36px 30px 46px;
 
+        @include respond-to(960){
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 94px;
+          border-top: 1px solid $c-border;
+          padding: 0 0 0 20px;
+        }
+        @include respond-to(320){
+          justify-content: center;
+          flex-wrap: wrap;
+          height: auto;
+          padding: 20px 0 0;
+        }
+
         .price__old{
           text-decoration: line-through;
           color: #adadad;
           font-size: 20px;
           font-weight: 400;
-          margin-bottom: 2px;
+          //margin-bottom: 2px;
+
+          @include respond-to(768){
+            font-size: 16px;
+          }
+          @include respond-to(320){
+            margin-right: 20px;
+          }
         }
 
         .price__new{
           font-size: 24px;
           font-weight: 700;
+
+          @include respond-to(768){
+            font-size: 20px;
+          }
         }
 
         .field-product{
           margin-top: 34px;
           margin-bottom: 38px;
+
+          @include respond-to(320){
+            margin: 16px 0 20px;
+          }
 
           input[type="submit"]{
             width: 120px;
@@ -3566,6 +3661,15 @@ footer{
             border: 1px solid $c-accent;
 
             @include transite(all);
+            @include respond-to(768){
+              font-size: 16px;
+              width: 100px;
+              height: 36px;
+            }
+            @include respond-to(320){
+              width: 120px;
+              height: 40px;
+            }
 
             &:hover{
               background: $c-accent;
@@ -3576,6 +3680,48 @@ footer{
       }
 
       .group__extra{
+        position: relative;
+
+
+        &:after{
+          content: '';
+          display: none;
+          width: 1px;
+          border-right: 1px solid #e5e5e5;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          height: 100%;
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+
+          @include respond-to(960){
+            display: block;
+          }
+          @include respond-to(768){
+            height: 20px;
+          }
+        }
+
+        @include respond-to(960){
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 474px;
+          height: 100%;
+          border-left: 1px solid $c-border;
+        }
+        @include respond-to(768){
+          width: 313px;
+        }
+        @include respond-to(320){
+          width: 100%;
+          height: auto;
+          border-left: none;
+          padding: 20px 0;
+          border-top: 1px solid $c-border;
+        }
 
         input[type="submit"],
         .btn{
@@ -3596,6 +3742,13 @@ footer{
           display: block;
           position: relative;
           margin-bottom: 36px;
+
+          @include respond-to(960){
+            margin: 0 30px;
+          }
+          @include respond-to(768){
+            margin: 0 18px;
+          }
 
           &:before{
             content: '';
@@ -3637,10 +3790,16 @@ footer{
         list-style: none;
         display: flex;
         position: relative;
+        margin-bottom: 0;
 
-        li.panel__link{
-          display: block;
-          padding: 0 10px;
+        @include respond-to(320){
+          white-space: nowrap;
+          overflow-y: hidden;
+          overflow-x: scroll;
+        }
+
+        li{
+          margin-left: 0;
         }
 
         a{
@@ -3655,8 +3814,20 @@ footer{
           font-size: 16px;
           position: relative;
 
-          &.is-active, &:hover{
+          &.is-active{
             color: $c-accent;
+          }
+
+          &:hover{
+            color: rgba($c-accent, .72);
+          }
+
+          &.link__attributes{
+            visibility: hidden;
+
+            @include respond-to(320){
+              visibility: visible;
+            }
           }
         }
 
@@ -3674,10 +3845,25 @@ footer{
       .container{
         position: relative;
         width: 1096px;
+        border-top: 1px solid $c-border;
+        min-height: 400px;
+
+        @include respond-to(960){
+          width: 616px;
+        }
+        @include respond-to(768){
+          width: 100%;
+          min-height: initial;
+          overflow: hidden;
+        }
 
         .panels__wrapper{
           margin-right: 40px;
           position: relative;
+
+          @include respond-to(768){
+            margin-right: 0;
+          }
 
           .panel{
             visibility: hidden;
@@ -3689,11 +3875,54 @@ footer{
 
             @include transite(all);
 
+            section#comments p.block-title{
+              display: none;
+            }
+
+            .panel__comments{
+
+              .date{
+                color: $c-accent;
+                font-weight: 300;
+                font-size: 14px;
+                margin-bottom: 20px;
+              }
+            }
+
+            &.panel__description,
+            &.panel__attributes{
+              padding-top: 20px;
+            }
+
+            &.panel__attributes{
+              display: none;
+
+              @include respond-to(320){
+                display: block;
+              }
+            }
+
             &.is-active{
               position: relative;
               z-index: 5;
               visibility: visible;
               opacity: 1;
+            }
+
+            p.block-title{
+              font-weight: 500;
+            }
+
+            .text{
+              font-size: 14px;
+              line-height: 1.4;
+            }
+
+            ul.attributes{
+              color: #767676;
+              font-size: 14px;
+              font-weight: 300;
+              line-height: 1.4;
             }
           }
         }
@@ -3701,13 +3930,79 @@ footer{
         .node-product-display.node-teaser{
           width: 264px;
           box-shadow: 0 0 13px rgba(#000, .14);
-          display: none;
+          background: #fff;
+          right: -304px;
+          top: 0;
+          position: absolute;
+          transform: translate3d(0, 80px, 0);
+          opacity: 0;
+          visibility: hidden;
+
+          &.is-active{
+            transform: translate3d(0, -2px, 0);
+            opacity: 1;
+            visibility: visible;
+          }
+
+          @include transite(all);
+          @include respond-to(768){
+            display: none;
+          }
 
           h1{
             font-size: 14px;
             font-weight: 300;
+            margin-top: 20px;
+            margin-bottom: 16px;
           }
         }
+      }
+    }
+  }
+}
+
+.view-products-catalog.view-display-id-default{
+
+  .view-content{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% + 40px);
+    margin-right: 18px;
+  }
+
+  .node-product-display.node-teaser{
+    width: 264px;
+    margin-right: 18px;
+    margin-bottom: 18px;
+
+    @include respond-to(960){
+      width: 302px;
+    }
+    @include respond-to(768){
+      width: 237px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    @include respond-to(320){
+      width: 280px;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    .group__img{
+      text-align: center;
+    }
+
+    .text{
+      display: block;
+      font-size: 12px;
+      color: $c-os;
+    }
+
+    .group:not(.group__img){
+
+      @include respond-to(768){
+        //padding: 0 8px;
       }
     }
   }

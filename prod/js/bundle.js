@@ -11125,7 +11125,10 @@ $(document).ready(function () {
 
    _mobileMenu2.default.init();
    _openPopup2.default.init();
-   _product2.default.init();
+
+   if ($('.main__content .container.product_display').length) {
+      _product2.default.init();
+   }
 
    $('.region-slider #block-views-sliders-block .view-content, ' + '.region-slider #block-views-sliders-block-1 .view-content').slick({
       slidesToShow: 1,
@@ -22754,38 +22757,82 @@ var product = {
     settings: {
         mainSlider: $('.product__announce .slider__main'),
         sliderExtra: $('.product__announce .slider__extra'),
+        panelsMenu: $('.panels ul.menu__panels'),
         panelLink: $('.panel__link'),
-        panels: $('.panels__wrapper')
+        panels: $('.panels__wrapper'),
+        gimmick: $('.panels ul.menu__panels li.gimmick'),
+        teaser: $('.panels .container .node-product-display.node-teaser')
     },
 
     init: function init() {
-        var handler = this;
-        this.settings.mainSlider.slick({
-            slidesToShow: 1,
-            fade: true,
-            arrows: false,
-            dots: false,
-            asNavFor: handler.settings.sliderExtra
+        var _handler = this;
+
+        this.gimmick();
+
+        var waypoint = new Waypoint({
+            element: document.querySelector('.product__announce .info__container h1'),
+            handler: function handler(direction) {
+                console.log(direction);
+
+                if (direction == 'down') {
+                    _handler.settings.teaser.addClass('is-active');
+                }
+
+                if (direction == 'up') {
+                    _handler.settings.teaser.removeClass('is-active');
+                }
+            }
         });
-        this.settings.sliderExtra.slick({
-            slidesToShow: 3,
-            arrows: true,
-            dots: false,
-            asNavFor: handler.settings.mainSlider,
-            centerMode: true,
-            focusOnSelect: true,
-            vertical: true
+
+        $(window).load(function () {
+            _handler.settings.mainSlider.slick({
+                slidesToShow: 1,
+                fade: true,
+                arrows: false,
+                dots: false,
+                asNavFor: _handler.settings.sliderExtra
+            });
+            _handler.settings.sliderExtra.slick({
+                slidesToShow: 3,
+                arrows: true,
+                dots: false,
+                asNavFor: _handler.settings.mainSlider,
+                centerMode: true,
+                focusOnSelect: true,
+                vertical: true,
+                responsive: [{
+                    breakpoint: 767,
+                    settings: {
+                        vertical: false,
+                        arrows: false
+                    }
+                }]
+            });
         });
+
         this.settings.panelLink.click(function () {
             var $this = $(this);
-            $this.parent('.menu__panels').find('.is-active').removeClass('is-actvie');
+            _handler.settings.panelsMenu.find('.is-active').removeClass('is-active');
             $this.addClass('is-active');
+            _handler.gimmick();
             var target = $(this).attr('data-panel');
-            handler.settings.panels.find('.is-active').removeClass('is-active');
-            handler.settings.panels.find('.panel[data-panel="' + target + '"]').addClass('is-active');
+            _handler.settings.panels.find('.is-active').removeClass('is-active');
+            _handler.settings.panels.find('.panel[data-panel="' + target + '"]').addClass('is-active');
 
             return false;
         });
+    },
+
+    gimmick: function gimmick() {
+        var $activeLink = this.settings.panelsMenu.find('.panel__link.is-active');
+        var pos = $activeLink.offset().left;
+        var width = $activeLink.width();
+        var parentPos = this.settings.panelsMenu.offset().left;
+
+        this.settings.gimmick.stop().animate({
+            left: pos - parentPos,
+            width: width
+        }, 300);
     }
 };
 
