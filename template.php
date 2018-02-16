@@ -193,3 +193,27 @@ function webmaster_form_comment_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_e_mail']['und'][0]['email']['#title']);
   unset($form['comment_body']['und'][0]['value']['#title']);
 }
+
+function webmaster_form_alter(&$form, &$form_state, $form_id){
+
+  if($form_id == 'user_login'){
+
+    unset($form['name']['#title']);
+    unset($form['pass']['#title']);
+    $form['name']['#attributes']['placeholder'] = t('Имя пользователя');
+    $form['pass']['#attributes']['placeholder'] = t('Имя пользователя');
+  }
+
+  if($form_id == 'user_pass'){
+    kpr($form);
+    $form['name']['#attributes']['placeholder'] = t('Имя пользователя или адрес электронной почты');
+  }
+
+  if($form_id == 'user_register_form'){
+    kpr($form);
+
+    $form['account']['name']['#attributes']['placeholder'] = t('Имя пользователя');
+    $form['account']['mail']['#attributes']['placeholder'] = t('E-mail адрес');
+    $form['account']['pass']['#attributes']['placeholder'] = t('Пароль');
+  }
+}

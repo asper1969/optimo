@@ -1,5 +1,4 @@
 <?php
-//kpr($node);
 //
 //$product = array(
 //    'title' => $node->title,
@@ -22,46 +21,65 @@ unset($content_alter['commerce_product_comparison'],
     $content_alter['field_product_des'], $content_alter['product:field_novinki'],
     $content_alter['field_product_images'], $content_alter['product:title_field'],
     $content_alter['field_product_related']);
-//kpr($content['title_field']);
+//
+//kpr($content);
+//kpr($node);
 ?>
+
 <div class="product__announce">
     <div class="sliders">
         <div class="slider slider__main">
-            <?php foreach($images as $image):?>
-                <?php
-                $image_uri = $image['uri'];
-                $image_alt = $image['alt'];
-                $image_title = $image['title'];
-                $image_url = image_style_url('product_full', $image_uri);
-                $image_full_url = file_create_url($image_uri);
-                ?>
+            <?php if(isset($content['field_product_images']['#items'][0])):?>
+                <?php foreach($images as $image):?>
+                    <?php
+                    $image_uri = $image['uri'];
+                    $image_alt = $image['alt'];
+                    $image_title = $image['title'];
+                    $image_url = image_style_url('product_full', $image_uri);
+                    $image_full_url = file_create_url($image_uri);
+                    ?>
+                    <div class="slide">
+                        <a href="<?php echo $image_full_url;?>"
+                           class="colorbox init-colorbox-processed cboxElement"
+                           rel="gallery-node-<?php echo $node->nid;?>">
+                            <img
+                                src="<?php echo $image_url;?>"
+                                alt="<?php echo $image_alt;?>"
+                                title = <?php echo $image_title;?>>
+                        </a>
+                    </div>
+                <?php endforeach;?>
+            <?php else:?>
                 <div class="slide">
-                    <a href="<?php echo $image_full_url;?>"
+                    <a href="/<?php print $directory; ?>/prod/img/default.jpg"
                        class="colorbox init-colorbox-processed cboxElement"
                        rel="gallery-node-<?php echo $node->nid;?>">
+                        <img src="/<?php print $directory; ?>/prod/img/default.jpg">
+                    </a>
+                </div>
+            <?php endif;?>
+        </div>
+        <div class="slider slider__extra">
+            <?php if(isset($content['field_product_images']['#items'][0])):?>
+                <?php foreach($images as $image):?>
+                    <?php
+                    $image_uri = $image['uri'];
+                    $image_alt = $image['alt'];
+                    $image_title = $image['title'];
+                    $image_url = image_style_url('product_thumbnail', $image_uri);
+                    ?>
+                    <div class="slide">
                         <img
                             src="<?php echo $image_url;?>"
                             alt="<?php echo $image_alt;?>"
                             title = <?php echo $image_title;?>>
-                    </a>
-                </div>
-            <?php endforeach;?>
-        </div>
-        <div class="slider slider__extra">
-            <?php foreach($images as $image):?>
-                <?php
-                $image_uri = $image['uri'];
-                $image_alt = $image['alt'];
-                $image_title = $image['title'];
-                $image_url = image_style_url('product_thumbnail', $image_uri);
-                ?>
+                    </div>
+                <?php endforeach;?>
+            <?php else:?>
                 <div class="slide">
-                    <img
-                        src="<?php echo $image_url;?>"
-                        alt="<?php echo $image_alt;?>"
-                        title = <?php echo $image_title;?>>
+                    <img src="/<?php print $directory; ?>/prod/img/default.jpg">
                 </div>
-            <?php endforeach;?>
+            <?php endif;?>
         </div>
         <div class="group__header group">
             <?php echo render($content['product:field_novinki']);?>
@@ -75,7 +93,7 @@ unset($content_alter['commerce_product_comparison'],
             </div>
         <?php endif;?>
     </div>
-    <div class="info__container">
+    <div class="info__container <?php if(sizeof($images) <= 3){echo 'compressed';}?>">
         <?php echo render($content['title_field']);?>
         <div class="info">
             <?php if($content_alter):?>

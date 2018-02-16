@@ -1,5 +1,7 @@
 <?php
 $content_alter = $content;
+$alias = drupal_get_path_alias('node/' . $node->nid);
+
 unset($content_alter['commerce_product_comparison'],
     $content_alter['links'], $content_alter['comments'],
     $content_alter['title_field'], $content_alter['product:commerce_price'],
@@ -9,8 +11,11 @@ unset($content_alter['commerce_product_comparison'],
     $content_alter['field_catalog'], $content_alter['product:field_weight'],
     $content_alter['field_product_des'], $content_alter['product:field_novinki'],
     $content_alter['field_product_images'], $content_alter['product:title_field'],
-    $content_alter['field_product_related'], $content_alter['product:status']);
-//kpr($content_alter);
+    $content_alter['field_product_related'], $content_alter['product:status'],
+    $content_alter['field_shop_shipper']);
+//kpr($content['title_field']['#object']);
+//kpr($content);
+
 ?>
 
 <div class="node-product-display node-teaser">
@@ -21,26 +26,42 @@ unset($content_alter['commerce_product_comparison'],
         <?php echo render($content['product:field_discount']);?>
     </div>
     <div class="group group__img">
-        <?php echo render($content['field_product_images'][0]);?>
+        <?php if(isset($content['field_product_images']['#items'][0])):?>
+            <?php echo render($content['field_product_images'][0]);?>
+        <?php else:?>
+            <a href="/<?php echo $alias;?>">
+                <img src="/<?php print $directory; ?>/prod/img/default.jpg">
+            </a>
+        <?php endif;?>
     </div>
     <div class="group group__content">
-        <?php echo render($content['title_field']);?>
+        <h4>
+            <a href="/<?php echo $alias;?>"
+               alt="<?php echo $node->title;?>"
+               title="<?php echo $node->title;?>"><?php echo $node->title;?></a>
+        </h4>
         <div class="text">
             <?php if($content_alter):?>
                 <ul class="attributes">
-                    <?php foreach($content_alter as $attribute):?>
+                    <?php foreach($content_alter as $item):?>
+                        <?php
+                        if(isset($item[0]['taxonomy_term'])){
+                            $attribute = reset($item[0]['taxonomy_term']);
+                        }
+//                        kpr($attribute)
+                        ?>
                         <li class="attribute">
                         <span class="attribute__title">
-                            <?php echo $attribute['#title'] . ' - ';?>
+                            <?php echo $item['#title'] . ' - ';?>
                         </span>
                         <span class="attribute__value">
                             <?php
-                            if(isset($attribute[0]['#title'])){
-                                echo $attribute[0]['#title'];
+                            if(isset($attribute['#term']->name)){
+                                echo $attribute['#term']->name;
                             }
-                            if(isset($attribute[0]['#markup'])){
-                                echo $attribute[0]['#markup'];
-                            }
+//                            if(isset($attribute[0]['#markup'])){
+//                                echo $attribute[0]['#markup'];
+//                            }
                             ?>
                         </span>
                         </li>

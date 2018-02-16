@@ -21,7 +21,7 @@ let openPopup = {
 
         });
 
-        this.settings.targets.click(function(){
+        this.settings.targets.click(function(e){
             let $target = $('.' + $(this).attr('data-target') + ', ' +
                 '#' + $(this).attr('data-target'));
             $target.addClass('is-active');
@@ -35,9 +35,8 @@ let openPopup = {
             handler.settings.overlay.removeClass('is-active');
         });
 
-        $('.popup-element').click(function(){
-
-            return false;
+        $('.popup-element').click(function(e){
+            e.stopPropagation();
         });
 
         this.settings.overlay.click(function(){

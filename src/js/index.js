@@ -6,6 +6,7 @@ import {slick} from 'slick-carousel';
 import openPopup from './modules/openPopup.js';
 import mobileMenu from './modules/mobileMenu.js';
 import product from './modules/product.js';
+import cart from './modules/cart.js';
 
 jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a}});
 let finish = parseInt($('#block-block-8 p.block-title').text().trim());
@@ -18,6 +19,15 @@ $(document).ready(()=>{
 
    if($('.main__content .container.product_display').length){
       product.init();
+   }
+
+   if($('.view-products-catalog.view-display-id-default ').length){
+      $('.view-products-catalog.view-display-id-default ' +
+          '.node-product-display.node-teaser .text').matchHeight();
+   }
+
+   if($('#block-bainet-cartblock-cartblock').length){
+      cart.init();
    }
 
    $('.region-slider #block-views-sliders-block .view-content, ' +

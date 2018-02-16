@@ -49,7 +49,6 @@ global $user;
     </div>
 </div>
 <div class="main-categories">
-
     <?php
     $menu = menu_tree_all_data('menu-catalog');
     ?>
@@ -62,30 +61,32 @@ global $user;
                 <?php
                 $sub_catalog = $category['below'];
                 if(sizeof($sub_catalog) > 0):
-                ?>
-                    <ul class="sub-catalog">
-                        <?php foreach($sub_catalog as $key=>$sub_category):?>
-                            <li class="sub-category">
-                                <a href="<?php echo $sub_category['link']['link_path'];?>">
-                                    <?php echo $sub_category['link']['link_title'];?>
-                                </a>
-                                <?php
-                                $bottom_catalog = $sub_category['below'];
-                                if(sizeof($bottom_catalog) > 0):
-                                    ?>
-                                    <ul class="sub-catalog">
-                                        <?php foreach($bottom_catalog as $key=>$bottom_category):?>
-                                            <li class="sub-category">
-                                                <a href="<?php echo $bottom_category['link']['link_path'];?>">
-                                                    <?php echo $bottom_category['link']['link_title'];?>
-                                                </a>
-                                            </li>
-                                        <?php endforeach;?>
-                                    </ul>
-                                <?php endif;?>
-                            </li>
-                        <?php endforeach;?>
-                    </ul>
+                    ?>
+                    <div class="sub-catalog__wrapper">
+                        <ul class="sub-catalog">
+                            <?php foreach($sub_catalog as $key=>$sub_category):?>
+                                <li class="sub-category">
+                                    <a href="<?php echo $sub_category['link']['link_path'];?>">
+                                        <?php echo $sub_category['link']['link_title'];?>
+                                    </a>
+                                    <?php
+                                    $bottom_catalog = $sub_category['below'];
+                                    if(sizeof($bottom_catalog) > 0):
+                                        ?>
+                                        <ul class="sub-catalog">
+                                            <?php foreach($bottom_catalog as $key=>$bottom_category):?>
+                                                <li class="sub-category">
+                                                    <a href="<?php echo $bottom_category['link']['link_path'];?>">
+                                                        <?php echo $bottom_category['link']['link_title'];?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach;?>
+                                        </ul>
+                                    <?php endif;?>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
                 <?php endif;?>
             </li>
         <?php endforeach;?>
