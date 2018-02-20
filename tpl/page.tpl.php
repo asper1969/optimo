@@ -257,7 +257,7 @@ $current_path = current_path();
 </footer>
 
 <div class="hidden__container">
-    <?php print $messages; ?>
+<!--    --><?php //print $messages; ?>
     <?php if($page['hidden__region']): ?>
         <?php print render($page['hidden__region']);?>
     <?php endif; ?>

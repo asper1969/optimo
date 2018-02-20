@@ -1,6 +1,7 @@
 <?php
 $content_alter = $content;
 $alias = drupal_get_path_alias('node/' . $node->nid);
+$compare_list = module_invoke('commerce_product_comparison', 'block_view', 'compare_list_link');
 
 unset($content_alter['commerce_product_comparison'],
     $content_alter['links'], $content_alter['comments'],
@@ -15,7 +16,6 @@ unset($content_alter['commerce_product_comparison'],
     $content_alter['field_shop_shipper']);
 //kpr($content['title_field']['#object']);
 //kpr($content);
-
 ?>
 
 <div class="node-product-display node-teaser">

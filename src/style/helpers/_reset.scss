@@ -161,6 +161,8 @@ input::-moz-focus-inner {
   border: 0;
 }
 
+input[disabled] {pointer-events:none}
+
 .ajax-progress-throbber { display: none}
 
 a:active, a:focus {

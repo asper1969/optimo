@@ -24,6 +24,7 @@ unset($content_alter['commerce_product_comparison'],
 //
 //kpr($content);
 //kpr($node);
+kpr($content['commerce_product_comparison']);
 ?>
 
 <div class="product__announce">

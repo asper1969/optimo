@@ -205,15 +205,26 @@ function webmaster_form_alter(&$form, &$form_state, $form_id){
   }
 
   if($form_id == 'user_pass'){
-    kpr($form);
+//    kpr($form);
     $form['name']['#attributes']['placeholder'] = t('Имя пользователя или адрес электронной почты');
   }
 
   if($form_id == 'user_register_form'){
-    kpr($form);
+//    kpr($form);
 
     $form['account']['name']['#attributes']['placeholder'] = t('Имя пользователя');
     $form['account']['mail']['#attributes']['placeholder'] = t('E-mail адрес');
     $form['account']['pass']['#attributes']['placeholder'] = t('Пароль');
+  }
+
+  if($form_id == 'commerce_checkout_form_shipping'){
+//    kpr($form);
+
+    $form['customer_profile_shipping']['field_customer_name']['und'][0]['value']['#attributes']['placeholder'] = t('Ваше Имя*');
+    $form['customer_profile_shipping']['field_customer_adress']['und'][0]['value']['#attributes']['placeholder'] = t('Домашний адрес*');
+    $form['customer_profile_shipping']['field_customer_phone']['und'][0]['value']['#attributes']['placeholder'] = t('Мобильный*');
+    $form['customer_profile_shipping']['field_customer_phone_city']['und'][0]['value']['#attributes']['placeholder'] = t('Городской телефон');
+    $form['customer_profile_shipping']['field_customer_email']['und'][0]['email']['#attributes']['placeholder'] = t('Ваш e-mail');
+    $form['customer_profile_shipping']['field_customer_order_c']['und'][0]['value']['#attributes']['placeholder'] = t('Комментарий к заказу');
   }
 }
