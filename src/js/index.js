@@ -8,6 +8,7 @@ import mobileMenu from './modules/mobileMenu.js';
 import product from './modules/product.js';
 import cart from './modules/cart.js';
 import compare from './modules/compare.js';
+import compareTable from './modules/compareTable.js';
 
 jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a}});
 
@@ -19,9 +20,12 @@ jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a
       openPopup.init();
       compare.init();
 
-
       if($('.main__content .container.product_display').length){
          product.init();
+      }
+
+      if($('#properties-compare-table').length){
+         compareTable.init();
       }
 
       if($('.view-products-catalog.view-display-id-default ').length){

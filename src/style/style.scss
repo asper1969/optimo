@@ -4821,5 +4821,216 @@ form#commerce-checkout-form-checkout{
   }
 }
 
+#properties-compare-table{
+  max-width: 100%;
+  overflow: hidden;
+
+  .categories_toggler{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $c-border;
+
+    @include respond-to(320){
+      display: block;
+      border: none;
+      padding-bottom: 0;
+    }
+
+    .category{
+      padding: 0 20px;
+      height: 33px;
+      color: #767676;
+      border: 1px solid #adadad;
+      border-radius: 2px;
+      font-size: 14px;
+      cursor: pointer;
+      background: transparent;
+      font-weight: 400;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+
+      @include transite(all);
+      @include respond-to(320){
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+
+      &:hover{
+        color: $c-accent;
+        border-color: $c-accent;
+      }
+
+      &:last-of-type{
+        margin-right: 0;
+      }
+
+      &.is-active{
+        color: #fff;
+        border-color: $c-accent;
+        background: $c-accent;
+      }
+    }
+  }
+
+  .container{
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
+    align-items: flex-start;
+    padding-bottom: 30px;
+
+    @include respond-to(320){
+      white-space: initial;
+    }
+
+    .product{
+      width: auto;
+      margin-right: 18px;
+      border: 1px solid #e5e5e5;
+      padding: 16px 0 0;
+      position: relative;
+      min-height: 446px;
+      opacity: 0;
+      display: none;
+
+      @include transite(all);
+      @include respond-to(320){
+        max-width: calc(100% - 30px);
+      }
+
+      &.is-active{
+        opacity: 1;
+        display: block;
+      }
+
+      >div{
+        padding: 12px 20px 10px;
+        border-bottom: 1px solid $c-border;
+        font-size: 14px;
+        color: #767676;
+        display: flex;
+        justify-content: space-between;
+
+        @include respond-to(320){
+          text-align: right;
+          padding: 12px 10px 10px;
+          align-items: center;
+        }
+
+        &:last-of-type{
+          border-bottom: none;
+        }
+
+        strong, .attribute__title{
+          display: block;
+          margin-right: 30px;
+          font-weight: 400;
+
+          @include respond-to(320){
+            text-align: left;
+            max-width: 110px;
+          }
+        }
+      }
+
+      .product_image{
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 250px;
+        min-height: 255px;
+        padding-top: 0;
+      }
+
+      .product_title{
+        font-size: 14px;
+        font-weight: 500;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: auto;
+
+        @include respond-to(320){
+          text-align: left;
+        }
+
+        a{
+          text-decoration: none;
+          color: $c-text;
+          white-space: nowrap;
+
+          @include transite(all);
+
+          &:hover{
+            color: $c-accent;
+          }
+        }
+      }
+
+      .delete-from-comparison{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+
+        &:hover{
+          background: transparent;
+
+          &:after{
+            color: $c-accent;
+          }
+        }
+
+        &:after{
+          position: absolute;
+          display: block;
+          content: '+';
+          top: 50%;
+          left: 50%;
+          transform-origin: 50% 50%;
+          transform: translate(-50%,-50%) rotate(45deg);
+          font-weight: 300;
+          font-size: 30px;
+          color: $c-grey;
+
+          @include transite(all);
+        }
+      }
+
+      .buy{
+        text-align: center;
+
+        >form{
+          margin: 0 auto;
+        }
+
+        input[type="submit"]{
+          width: 86px;
+          height: 33px;
+          color: #da3c43;
+          background: #fff;
+          font-weight: 600;
+          font-size: 14px;
+          border-radius: 2px;
+          border: 1px solid #da3c43;
+          margin: 0 auto;
+
+          @include transite(all);
+
+          &:hover{
+            background: #da3c43;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
 
 
