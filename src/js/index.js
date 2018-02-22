@@ -9,16 +9,21 @@ import product from './modules/product.js';
 import cart from './modules/cart.js';
 import compare from './modules/compare.js';
 import compareTable from './modules/compareTable.js';
+import catalogView from './modules/catalogView.js';
 
 jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a}});
 
-(function($){
+(function($, Drupal){
 
    $(document).ready(()=>{
 
       mobileMenu.init();
       openPopup.init();
       compare.init();
+
+      if($('.view-products-catalog.view-display-id-default').length){
+         catalogView.init();
+      }
 
       if($('.main__content .container.product_display').length){
          product.init();
@@ -88,4 +93,4 @@ jQuery.extend(jQuery.easing,{easeInOutExpo:function(e,f,a,h,g){if(f==0){return a
       }, 1500, 'easeInOutExpo');
       event.preventDefault();
    }
-})(jQuery);
+})(jQuery, Drupal);

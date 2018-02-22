@@ -6,8 +6,6 @@ if ( arg(0) == 'node' && is_numeric(arg(1)) ) {
     $current_node = $node->type;
 }
 $current_path = current_path();
-
-//kpr($current_node);
 ?>
 <div class="overlay"></div>
 <div class="promos">
@@ -182,6 +180,32 @@ $current_path = current_path();
             </ul>
         <?php endif; ?>
         <?php print $messages; ?>
+        <?php if(arg(0) == 'taxonomy'):?>
+            <div class="actions">
+                <?php if($page['sorts']): ?>
+                    <?php print render($page['sorts']);?>
+                <?php endif; ?>
+                <div class="btns">
+                    <label>Вид:</label>
+                    <div class="btn btn__rows" data-view="rows">
+                        <div class="line">...</div>
+                        <div class="line">...</div>
+                        <div class="line">...</div>
+                    </div>
+                    <div class="btn btn__grid is-active" data-view="grid">
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                        <div class="column">.</div>
+                    </div>
+                </div>
+            </div>
+        <?php endif;?>
         <?php if($page['content']): ?>
             <?php print render($page['content']);?>
         <?php endif; ?>

@@ -20,6 +20,12 @@ let compareTable = {
 
             $handler.setActive(tid);
         });
+
+        Drupal.ajax.prototype.success = function (xmlhttprequest, options) {
+
+
+            $handler.init();
+        };
     },
 
     setActive(tid){
@@ -35,3 +41,4 @@ let compareTable = {
 };
 
 module.exports = compareTable;
+
